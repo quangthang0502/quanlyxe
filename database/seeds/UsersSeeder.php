@@ -35,5 +35,13 @@ class UsersSeeder extends Seeder
 		    'active' => 1,
 		    'level' => 3
 	    ]);
+	    DB::table('users')->insert([
+		    'name' => 'Admin',
+		    'email' => 'admin@gmail.com',
+		    'username' => 'admin',
+		    'password' => bcrypt('123456'),
+		    'active' => 1,
+		    'level' => 0
+	    ]);
     }
 }
