@@ -8,7 +8,7 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{url('node_modules/bootstrap/dist/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{url('node_modules/font-awesome/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{url('css/admin.css')}}">
+    <link rel="stylesheet" href="{{url('css/main.css')}}">
 </head>
 <body>
 <header>
@@ -22,7 +22,31 @@
     </nav>
 </header>
 
-@yield('content')
+<section>
+    <div class="row">
+        <div class="col-md-2 left-bar">
+            <ul>
+                @if(isAdmin())
+                    <li class="active"><a href="">Quan lý người dùng</a></li>
+                @endif
+                @if(isQuanLyNhienLieu())
+                    <li class="active"><a href="">Quan lý nhiên liệu</a></li>
+                @endif
+                @if(isQuanLyXe())
+                    <li class="active"><a href="{{route('quanLyXe')}}">Quan lý xe</a></li>
+                    <li><a href="">Thêm Xe mới</a></li>
+                @endif
+                @if(isTrucBan())
+                    <li class="active"><a href="">Quan lý lộ trình</a></li>
+                @endif
+            </ul>
+        </div>
+        <div class="col-md-10 right-bar">
+            @yield('content')
+        </div>
+    </div>
+</section>
+
 
 <script src="{{url('node_modules/jquery/dist/jquery.min.js')}}"></script>
 <script src="{{url('node_modules/bootstrap/dist/js/bootstrap.min.js')}}"></script>

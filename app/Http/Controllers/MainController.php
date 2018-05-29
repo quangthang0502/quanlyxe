@@ -8,6 +8,9 @@ class MainController extends Controller
 {
     //
 	function index(){
+		if(isQuanLyXe()){
+			return redirect()->route('quanLyXe');
+		}
 		return view('home');
 	}
 }

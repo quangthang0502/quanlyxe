@@ -19,5 +19,7 @@ Route::group(['middleware'=>'login'], function (){
 	Route::get('/', 'MainController@index')->name('home');
 
 
-
+	Route::group(['prefix' =>'quan-ly-xe'],function (){
+		Route::get('/', 'NhanVienQuanLyXe@index')->name('quanLyXe');
+	});
 });
