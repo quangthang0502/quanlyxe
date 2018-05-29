@@ -13,8 +13,6 @@
 
 Route::get('/dang-nhap', 'Auth\LoginController@getLogin')->name('login');
 
-Route::group(['middleware' => 'admin'],function (){
-	Route::get('/', function () {
-		return view('home');
-	})->name('home');
-});
+Route::get('/', function () {
+	return view('home');
+})->name('home');
