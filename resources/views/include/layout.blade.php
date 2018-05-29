@@ -16,7 +16,7 @@
         <a class="navbar-brand" href="{{route('home')}}">Dashboard</a>
         <ul class="navbar-nav navbar-right">
             <li class="nav-item active">
-                <a class="nav-link" href="">Đăng xuất</a>
+                <a class="nav-link" href="{{route('logout')}}">Đăng xuất</a>
             </li>
         </ul>
     </nav>

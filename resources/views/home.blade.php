@@ -7,8 +7,18 @@
         <div class="row">
             <div class="col-md-2 left-bar">
                 <ul>
-                    <li class="active"><a href="">Quan lý sách</a></li>
-                    <li><a href="">Quản lý tài khoản</a></li>
+                    @if(isAdmin())
+                        <li class="active"><a href="">Quan lý người dùng</a></li>
+                    @endif
+                    @if(isQuanLyNhienLieu())
+                        <li class="active"><a href="">Quan lý nhiên liệu</a></li>
+                    @endif
+                    @if(isQuanLyXe())
+                        <li class="active"><a href="">Quan lý xe</a></li>
+                    @endif
+                    @if(isTrucBan())
+                        <li class="active"><a href="">Quan lý lộ trình</a></li>
+                    @endif
                 </ul>
             </div>
             <div class="col-md-10 right-bar">

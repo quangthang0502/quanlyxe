@@ -12,7 +12,12 @@
 */
 
 Route::get('/dang-nhap', 'Auth\LoginController@getLogin')->name('login');
+Route::post('/dang-nhap', 'Auth\LoginController@postLogin');
+Route::get('/dang-xuat', 'Auth\LoginController@logOut')->name('logout');
 
-Route::get('/', function () {
-	return view('home');
-})->name('home');
+Route::group(['middleware'=>'login'], function (){
+	Route::get('/', 'MainController@index')->name('home');
+
+
+
+});

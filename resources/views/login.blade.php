@@ -20,8 +20,8 @@
                 <div class="section-body">
                     <form action="{{route('login')}}" method="post">
                         {{csrf_field()}}
-                        @if($errors->has('email'))
-                            <div class="alert alert-danger">{{$errors->first('email')}}</div>
+                        @if($errors->has('username'))
+                            <div class="alert alert-danger">{{$errors->first('username')}}</div>
                         @endif
                         @if($errors->has('password'))
                             <div class="alert alert-danger">{{$errors->first('password')}}</div>
@@ -32,7 +32,7 @@
 
                         <div class="form-group">
                             <label for="username">Tài khoản:</label>
-                            <input type="text" name="email" class="form-control" id="username">
+                            <input type="text" name="username" class="form-control" id="username">
                         </div>
                         <div class="form-group">
                             <label for="pwd">Mật khẩu:</label>
