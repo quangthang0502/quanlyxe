@@ -21,5 +21,10 @@ Route::group(['middleware'=>'login'], function (){
 
 	Route::group(['prefix' =>'quan-ly-xe'],function (){
 		Route::get('/', 'NhanVienQuanLyXe@index')->name('quanLyXe');
+
+		Route::get('/bien-so-{licenceNumber}', 'NhanVienQuanLyXe@showDetal')->name('TaxiDetal');
+
+		Route::get('/them-xe', 'NhanVienQuanLyXe@getAddInforNewTaxi')->name('formNewTaxi');
+		Route::post('/them-xe', 'NhanVienQuanLyXe@postAddInforNewTaxi');
 	});
 });
