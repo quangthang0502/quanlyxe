@@ -13,5 +13,15 @@ class TaiXe extends Model
 		'lastName',
 		'address',
 		'phoneNumber',
+		'cardNumber',
+		'birthday',
+		'danToc',
+		'relationship',
+		'religion',
+		'educationalLevel',
+		'email',
+		'gender',
+		'story',
+		'description'
 	];
 }

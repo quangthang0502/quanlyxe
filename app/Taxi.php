@@ -12,19 +12,9 @@ class Taxi extends Model {
 		'model',
 		'numberOfSeat',
 		'status',
-		'codeDriver',
-		'codeLocation'
 	];
 
 	public function tGetModel(){
 		return $this->model;
-	}
-
-	public function getDriver(){
-		return TaiXe::where('codeDriver',$this->codeDriver)->first();
-	}
-
-	public function getLocation(){
-		return KhuVuc::where('codeLocation', $this->codeLocation)->first();
 	}
 }

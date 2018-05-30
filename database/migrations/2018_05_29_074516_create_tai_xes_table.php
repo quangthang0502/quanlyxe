@@ -20,6 +20,16 @@ class CreateTaiXesTable extends Migration
             $table->string('lastName');
             $table->string('address');
             $table->string('phoneNumber');
+            $table->string('cardNumber');
+            $table->date('birthday');
+            $table->string('danToc');
+            $table->string('relationship');
+			$table->string('religion');
+			$table->string('educationalLevel');
+			$table->string('email');
+			$table->integer('gender');
+			$table->string('story');
+			$table->string('description');
             $table->timestamps();
         });
     }

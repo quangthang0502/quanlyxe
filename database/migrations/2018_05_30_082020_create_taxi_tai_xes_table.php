@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTaxisTable extends Migration
+class CreateTaxiTaiXesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateTaxisTable extends Migration
      */
     public function up()
     {
-        Schema::create('taxis', function (Blueprint $table) {
+        Schema::create('taxi_tai_xes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('licenceNumber');
-            $table->string('model');
-            $table->string('numberOfSeat');
-            $table->integer('status');
+	        $table->string('licenceNumber');
+	        $table->string('codeDriver');
+	        $table->string('codeLocation');
+	        $table->integer('shift');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateTaxisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('taxis');
+        Schema::dropIfExists('taxi_tai_xes');
     }
 }
