@@ -212,4 +212,65 @@ class NhanVienQuanLyXe extends Controller {
 
 		return redirect()->route( 'quanLyXe' );
 	}
+
+	function updateDriver($codeDriver){
+		$driver = TaiXe::where( 'codeDriver', $codeDriver )->first();
+		return view('QuanLyXe.updateDriver')->with(compact('driver'));
+	}
+
+	function postUpdateDriver($codeDriver, DriverRequest $request){
+		$input = $request->only( [
+			'codeDriver',
+			'firstName',
+			'lastName',
+			'address',
+			'phoneNumber',
+			'cardNumber',
+			'birthday',
+			'danToc',
+			'relationship',
+			'religion',
+			'educationalLevel',
+			'email',
+			'gender',
+			'story',
+			'description',
+		] );
+
+		$driver = TaiXe::where( 'codeDriver', $codeDriver )->first();
+		$driver->codeDriver = $input['codeDriver'];
+		$driver->firstName = $input['firstName'];
+		$driver->lastName = $input['lastName'];
+		$driver->address = $input['address'];
+		$driver->phoneNumber = $input['phoneNumber'];
+		$driver->cardNumber = $input['cardNumber'];
+		$driver->birthday = $input['birthday'];
+		$driver->danToc = $input['danToc'];
+		$driver->relationship = $input['relationship'];
+		$driver->religion = $input['religion'];
+		$driver->educationalLevel = $input['educationalLevel'];
+		$driver->email = $input['email'];
+		$driver->gender = $input['gender'];
+		$driver->story = $input['story'];
+		$driver->description = $input['description'];
+
+		$driver->save();
+
+		$status = 'Cập nhập thành công.';
+		return redirect()->back();
+	}
+
+	function deleteDriver($codeDriver){
+		$taiXeTaxi = TaxiTaiXe::where('codeDriver', $codeDriver)->first();
+
+		if (!$taiXeTaxi) {
+			$driver = TaiXe::where( 'codeDriver', $codeDriver )->first();
+			$driver->delete();
+			return redirect()->route('listDriver');
+		} else {
+			$errors = new MessageBag( [ 'crateTaxiError' => 'Tài xế đang được phân xe.' ] );
+
+			return redirect()->back()->withInput()->withErrors( $errors );
+		}
+	}
 }

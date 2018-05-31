@@ -7,6 +7,9 @@
 @section("content")
     <div class="card-body">
         <div class="table-responsive">
+            @foreach($errors->all() as $message)
+                <div class="alert alert-danger">{{$message}}</div>
+            @endforeach
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                 <tr>
@@ -43,8 +46,8 @@
                         <td>
                             <div class="btn-group btn-group-sm">
                                 <a class="btn btn-primary" href="{{route('TaxiDetal',$a->codeDriver)}}">Xem</a>
-                                <a class="btn btn-success">Sửa</a>
-                                <a class="btn btn-danger">Xóa</a>
+                                <a class="btn btn-success" href="{{route('capNhapTaiXe',$a->codeDriver)}}">Sửa</a>
+                                <a class="btn btn-danger" href="{{route('xoaTaiXe',$a->codeDriver)}}">Xóa</a>
                             </div>
                         </td>
                     </tr>

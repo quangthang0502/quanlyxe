@@ -25,8 +25,13 @@ Route::group( [ 'middleware' => 'login' ], function () {
 		Route::get( '/danh-sach-tai-xe', 'NhanVienQuanLyXe@showListDriver' )->name( 'listDriver' );
 		Route::get( '/them-tai-xe', 'NhanVienQuanLyXe@showFormAddDriver' )->name( 'showFormAddDriver' );
 		Route::post( '/them-tai-xe', 'NhanVienQuanLyXe@postFormAddDriver' );
+		Route::get('/cap-nhap-tai-xe/{codeDriver}', 'NhanVienQuanLyXe@updateDriver')->name('capNhapTaiXe');
+		Route::post('/cap-nhap-tai-xe/{codeDriver}','NhanVienQuanLyXe@postUpdateDriver');
+		Route::get('/xoa-tai-xe/{codeDriver}','NhanVienQuanLyXe@deleteDriver')->name('xoaTaiXe');
+
 
 		Route::get( '/danh-sach-xe', 'NhanVienQuanLyXe@showListTaxi' )->name( 'listTaxi' );
+
 		Route::get( '/phan-xe', 'NhanVienQuanLyXe@partitionTaxiForDriver' )->name( 'phanXe' );
 		Route::post( '/phan-xe', 'NhanVienQuanLyXe@postPartitionTaxiForDriver' );
 		Route::get( '/xoa-phan-xe/{licenceNumber}/{codeDriver}', 'NhanVienQuanLyXe@deletePartitionTaxiForDriver' )->name( 'xoaPhanXe' );
