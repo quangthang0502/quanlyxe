@@ -44,12 +44,18 @@
                         <span class="nav-link-text">Quản Lý Xe</span>
                     </a>
                 </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-                        <a class="nav-link" href="{{route('listDriver')}}">
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                        <a class="nav-link" href="{{route('listTaxi')}}">
                             <i class="fa fa-fw fa-table"></i>
-                            <span class="nav-link-text">Danh sách tài xế</span>
+                            <span class="nav-link-text">Danh sách xe</span>
                         </a>
                     </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                    <a class="nav-link" href="{{route('listDriver')}}">
+                        <i class="fa fa-fw fa-table"></i>
+                        <span class="nav-link-text">Danh sách tài xế</span>
+                    </a>
+                </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
                     <a class="nav-link" href="{{route('showFormAddDriver')}}">
                         <i class="fa fa-fw fa-link"></i>
@@ -63,7 +69,7 @@
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="{{route('phanXe')}}">
                         <i class="fa fa-fw fa-link"></i>
                         <span class="nav-link-text">Phân xe và khu vực</span>
                     </a>

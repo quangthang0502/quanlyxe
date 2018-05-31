@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DriverRequest;
+use App\Http\Requests\PhanXeRequest;
 use App\Http\Requests\TaxiFormRequest;
 use App\KhuVuc;
 use App\TaiXe;
 use App\Taxi;
 use App\TaxiTaiXe;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\MessageBag;
+use Symfony\Component\HttpFoundation\Request;
 
 class NhanVienQuanLyXe extends Controller {
 	//
@@ -105,48 +108,86 @@ class NhanVienQuanLyXe extends Controller {
 			] );
 
 			return redirect()->route( 'TaxiDetal', $input['codeDriver'] );
-		}
+		} else {
+			$errors = new MessageBag( [ 'crateTaxiError' => 'Mã tài xế đã tồn tại' ] );
 
-		return redirect()->route( 'quanLyXe' );
+			return redirect()->back()->withInput()->withErrors( $errors );
+		}
+	}
+
+	function showListTaxi() {
+		$taxi = Taxi::all();
+
+		return view( 'QuanLyXe.listTaxi' )->with( compact( 'taxi' ) );
 	}
 
 	function postAddInforNewTaxi( TaxiFormRequest $request ) {
 		$input = $request->only( [
 			'licenceNumber',
 			'numberOfSeat',
-			'model',
-			'codeDriver',
-			'codeLocation',
-			'firstName',
-			'lastName',
-			'address',
-			'phoneNumber'
+			'model'
 		] );
 
-		$taxi   = Taxi::where( 'licenceNumber', $input['licenceNumber'] )->first();
-		$driver = TaiXe::where( 'codeDriver', $input['codeDriver'] )->first();
+		$taxi = Taxi::where( 'licenceNumber', $input['licenceNumber'] )->first();
 
-		if ( ! $driver && ! $taxi ) {
-			TaiXe::create( [
-				'codeDriver'  => $input['codeDriver'],
-				'firstName'   => $input['firstName'],
-				'lastName'    => $input['lastName'],
-				'address'     => $input['address'],
-				'phoneNumber' => $input['phoneNumber']
-			] );
+		if ( ! $taxi ) {
 
 			Taxi::create( [
 				'licenceNumber' => $input['licenceNumber'],
 				'numberOfSeat'  => $input['numberOfSeat'],
 				'model'         => $input['model'],
-				'codeLocation'  => $input['codeLocation'],
-				'codeDriver'    => $input['codeDriver'],
-				'status'        => 1
+				'status'        => 0
 			] );
 
-			return redirect()->route( 'TaxiDetal', $input['licenceNumber'] );
+			return redirect()->route( 'quanLyXe' );
 		} else {
 			$errors = new MessageBag( [ 'crateTaxiError' => 'Biển số hoặc mã tài xế đã tồn tại' ] );
+
+			return redirect()->back()->withInput()->withErrors( $errors );
+		}
+	}
+
+	function partitionTaxiForDriver() {
+		$taxi     = Taxi::where( 'status', '<', '2' )->get();
+		$driver   = TaiXe::where( 'active', '=', '1' )->get();
+		$location = KhuVuc::all();
+
+		return view( 'QuanLyXe.phanXe' )->with( compact( 'taxi', 'driver', 'location' ) );
+	}
+
+	function postPartitionTaxiForDriver( PhanXeRequest $request ) {
+		$input = $request->only( [
+			'licenceNumber',
+			'codeDriver',
+			'codeLocation',
+			'shift'
+		] );
+
+		$taxiTaiXe = TaxiTaiXe::where( [
+			'licenceNumber' => $input['licenceNumber'],
+			'shift'         => $input['shift'],
+		] )->first();
+
+		if ( ! $taxiTaiXe ) {
+			TaxiTaiXe::create( [
+				'licenceNumber' => $input['licenceNumber'],
+				'codeDriver'    => $input['codeDriver'],
+				'codeLocation'  => $input['codeLocation'],
+				'shift'         => $input['shift'],
+			] );
+
+			$taxi = Taxi::where( 'licenceNumber', $input['licenceNumber'] )->first();
+
+			$taxi->status = $taxi->status + 1;
+			$taxi->save();
+
+			$driver = TaiXe::where( 'codeDriver', $input['codeDriver'] )->first();
+			$driver->active = false;
+			$driver->save();
+
+			return redirect()->route( 'quanLyXe' );
+		} else {
+			$errors = new MessageBag( [ 'crateTaxiError' => 'Ca bị trùng' ] );
 
 			return redirect()->back()->withInput()->withErrors( $errors );
 		}
