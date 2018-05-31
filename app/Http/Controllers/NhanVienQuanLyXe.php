@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DriverRequest;
 use App\Http\Requests\TaxiFormRequest;
 use App\KhuVuc;
 use App\TaiXe;
 use App\Taxi;
 use App\TaxiTaiXe;
-use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
-use SebastianBergmann\CodeCoverage\Driver\Driver;
 
 class NhanVienQuanLyXe extends Controller {
 	//
@@ -32,12 +31,28 @@ class NhanVienQuanLyXe extends Controller {
 		return view( 'QuanLyXe.showAllTaxi' )->with( compact( 'result' ) );
 	}
 
+	function showListDriver() {
+		$taiXe = TaiXe::all();
+
+		return view( 'QuanLyXe.listDriver' )->with( compact( 'taiXe' ) );
+	}
+
+	function showFormAddDriver() {
+		return view( 'QuanLyXe.showFormAddDriver' );
+	}
+
 	function showDetal( $codeDriver ) {
 		$taxiTaiXe = TaxiTaiXe::where( 'codeDriver', $codeDriver )->first();
-		$driver    = $taxiTaiXe->getDriver();
-		$location  = $taxiTaiXe->getLocation();
-		$taxi      = $taxiTaiXe->getTaxi();
-		$shift     = $taxiTaiXe->shift;
+		if ( $taxiTaiXe ) {
+			$driver   = $taxiTaiXe->getDriver();
+			$location = $taxiTaiXe->getLocation();
+			$taxi     = $taxiTaiXe->getTaxi();
+			$shift    = $taxiTaiXe->shift;
+		} else {
+			$driver   = TaiXe::where( 'codeDriver', $codeDriver )->first();
+			$location = $taxi = $shift = '';
+		}
+
 
 		return view( 'QuanLyXe.detal' )->with( compact( 'taxi', 'driver', 'location', 'shift' ) );
 	}
@@ -46,6 +61,53 @@ class NhanVienQuanLyXe extends Controller {
 		$location = KhuVuc::all();
 
 		return view( 'QuanLyXe.formNewTaxi' )->with( compact( 'location' ) );
+	}
+
+	function postFormAddDriver( DriverRequest $request ) {
+		$input = $request->only( [
+			'codeDriver',
+			'firstName',
+			'lastName',
+			'address',
+			'phoneNumber',
+			'cardNumber',
+			'birthday',
+			'danToc',
+			'relationship',
+			'religion',
+			'educationalLevel',
+			'email',
+			'gender',
+			'story',
+			'description',
+		] );
+
+		$driver = TaiXe::where( 'codeDriver', $input['codeDriver'] )->first();
+
+		if ( ! $driver ) {
+			TaiXe::create( [
+				'codeDriver'       => $input['codeDriver'],
+				'firstName'        => $input['firstName'],
+				'lastName'         => $input['lastName'],
+				'address'          => $input['address'],
+				'phoneNumber'      => $input['phoneNumber'],
+				'cardNumber'       => $input['cardNumber'],
+				'birthday'         => $input['birthday'],
+				'danToc'           => $input['danToc'],
+				'relationship'     => $input['relationship'],
+				'religion'         => $input['religion'],
+				'educationalLevel' => $input['educationalLevel'],
+				'email'            => $input['email'],
+				'gender'           => $input['gender'],
+				'story'            => $input['story'],
+				'description'      => $input['description'],
+				'active'           => true
+			] );
+
+			return redirect()->route( 'TaxiDetal', $input['codeDriver'] );
+		}
+
+		return redirect()->route( 'quanLyXe' );
 	}
 
 	function postAddInforNewTaxi( TaxiFormRequest $request ) {

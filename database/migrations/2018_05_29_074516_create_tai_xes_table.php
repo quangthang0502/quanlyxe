@@ -30,6 +30,7 @@ class CreateTaiXesTable extends Migration
 			$table->integer('gender');
 			$table->string('story');
 			$table->string('description');
+			$table->boolean('active');
             $table->timestamps();
         });
     }

@@ -21,6 +21,9 @@ Route::group(['middleware'=>'login'], function (){
 
 	Route::group(['prefix' =>'quan-ly-xe'],function (){
 		Route::get('/', 'NhanVienQuanLyXe@index')->name('quanLyXe');
+		Route::get('/danh-sach-tai-xe', 'NhanVienQuanLyXe@showListDriver')->name('listDriver');
+		Route::get('/them-tai-xe', 'NhanVienQuanLyXe@showFormAddDriver')->name('showFormAddDriver');
+		Route::post('/them-tai-xe', 'NhanVienQuanLyXe@postFormAddDriver');
 
 		Route::get('/tai-xe-{codeDriver}', 'NhanVienQuanLyXe@showDetal')->name('TaxiDetal');
 

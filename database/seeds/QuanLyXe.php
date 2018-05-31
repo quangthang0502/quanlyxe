@@ -26,7 +26,8 @@ class QuanLyXe extends Seeder
 		    'email' => 'trung@gmail.com',
 		    'gender' => 1,
 		    'story' => '',
-		    'description' => ''
+		    'description' => '',
+		    'active' => false
 	    ] );
 
 	    DB::table( 'taxis' )->insert( [

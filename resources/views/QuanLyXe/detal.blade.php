@@ -32,6 +32,7 @@
         </div>
         <div class="col-md-6">
             <ul class="t-box">
+                @if($taxi && $shift)
                 <li>Biển số : {{$taxi->licenceNumber}}</li>
                 <li>Model : {{$taxi->model}}</li>
                 <li>Số lượng ghế : {{$taxi->numberOfSeat}}</li>
@@ -44,10 +45,16 @@
                 </li>
                 <li>
                     Ca hoạt động :
+                    @if($shift == 1)
+                        Ban Ngày
+                    @else
+                        Ban Đêm
+                    @endif
                 </li>
                 <li>
                     Khu vực hoạt động : {{$location->nameLocation}}
                 </li>
+                    @endif
             </ul>
         </div>
     </div>

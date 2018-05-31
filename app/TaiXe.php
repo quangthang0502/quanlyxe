@@ -22,6 +22,7 @@ class TaiXe extends Model
 		'email',
 		'gender',
 		'story',
-		'description'
+		'description',
+		'active'
 	];
 }
