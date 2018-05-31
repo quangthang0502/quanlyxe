@@ -35,8 +35,11 @@
                         <td>
                             <div class="btn-group btn-group-sm">
                                 <a class="btn btn-primary" href="{{route('TaxiDetal',$a['codeDriver'])}}">Xem</a>
-                                <a class="btn btn-success">Sửa</a>
-                                <a class="btn btn-danger">Xóa</a>
+                                <a class="btn btn-danger" href="{{
+                                route('xoaPhanXe',[
+                                'licenceNumber' => $a['licenceNumber'],
+                                'codeDriver' => $a['codeDriver']
+                                ])}}">Xóa</a>
                             </div>
                         </td>
                     </tr>

@@ -192,4 +192,24 @@ class NhanVienQuanLyXe extends Controller {
 			return redirect()->back()->withInput()->withErrors( $errors );
 		}
 	}
+
+	function deletePartitionTaxiForDriver($licenceNumber, $codeDriver){
+		$taxiTaiXe = TaxiTaiXe::where( [
+			'licenceNumber' => $licenceNumber,
+			'codeDriver'         => $codeDriver,
+		] )->first();
+
+		$taxiTaiXe->delete();
+
+		$taxi = Taxi::where( 'licenceNumber', $licenceNumber )->first();
+
+		$taxi->status = $taxi->status - 1;
+		$taxi->save();
+
+		$driver = TaiXe::where( 'codeDriver', $codeDriver )->first();
+		$driver->active = true;
+		$driver->save();
+
+		return redirect()->route( 'quanLyXe' );
+	}
 }
