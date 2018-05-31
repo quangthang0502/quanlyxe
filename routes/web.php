@@ -40,5 +40,8 @@ Route::group( [ 'middleware' => 'login' ], function () {
 
 		Route::get( '/them-xe', 'NhanVienQuanLyXe@getAddInforNewTaxi' )->name( 'formNewTaxi' );
 		Route::post( '/them-xe', 'NhanVienQuanLyXe@postAddInforNewTaxi' );
+		Route::get('/sua-xe/{licenceNumber}', 'NhanVienQuanLyXe@updateTaxi')->name('capNhapTaxi');
+		Route::post('/sua-xe/{licenceNumber}','NhanVienQuanLyXe@postUpdateTaxi');
+		Route::get('/xoa-xe/{licenceNumber}', 'NhanVienQuanLyXe@deleteTaxi')->name('xoaTaxi');
 	} );
 } );

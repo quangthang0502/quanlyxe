@@ -17,4 +17,8 @@ class Taxi extends Model {
 	public function tGetModel(){
 		return $this->model;
 	}
+
+	public function setModel($model){
+		$this->model = $model;
+	}
 }

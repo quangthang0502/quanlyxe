@@ -256,7 +256,6 @@ class NhanVienQuanLyXe extends Controller {
 
 		$driver->save();
 
-		$status = 'Cập nhập thành công.';
 		return redirect()->back();
 	}
 
@@ -269,6 +268,42 @@ class NhanVienQuanLyXe extends Controller {
 			return redirect()->route('listDriver');
 		} else {
 			$errors = new MessageBag( [ 'crateTaxiError' => 'Tài xế đang được phân xe.' ] );
+
+			return redirect()->back()->withInput()->withErrors( $errors );
+		}
+	}
+
+	function updateTaxi($licenceNumber){
+		$taxi = Taxi::where( 'licenceNumber', $licenceNumber )->first();
+		return view('QuanLyXe.updateTaxi')->with(compact('taxi'));
+	}
+
+	function postUpdateTaxi($licenceNumber, TaxiFormRequest $request){
+		$input = $request->only( [
+			'licenceNumber',
+			'numberOfSeat',
+			'model'
+		] );
+
+		$taxi = Taxi::where( 'licenceNumber', $licenceNumber )->first();
+		$taxi->licenceNumber = $input['licenceNumber'];
+		$taxi->numberOfSeat = $input['numberOfSeat'];
+		$taxi->setModel($input['model']);
+
+		$taxi->save();
+
+		return redirect()->back();
+	}
+
+	function deleteTaxi($licenceNumber){
+		$taiXeTaxi = TaxiTaiXe::where('licenceNumber', $licenceNumber)->first();
+
+		if (!$taiXeTaxi) {
+			$taxi = TaiXe::where( 'licenceNumber', $licenceNumber )->first();
+			$taxi->delete();
+			return redirect()->route('listDriver');
+		} else {
+			$errors = new MessageBag( [ 'crateTaxiError' => 'Taxi đang được hoạt động.' ] );
 
 			return redirect()->back()->withInput()->withErrors( $errors );
 		}
