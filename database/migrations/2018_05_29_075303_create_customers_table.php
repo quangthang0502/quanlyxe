@@ -20,6 +20,7 @@ class CreateCustomersTable extends Migration
             $table->integer('number');
             $table->string('codeLocation');
             $table->string('licenceNumber');
+            $table->string('codeDriver');
             $table->timestamps();
         });
     }

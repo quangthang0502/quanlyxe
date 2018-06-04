@@ -44,12 +44,12 @@
                         <span class="nav-link-text">Quản Lý Xe</span>
                     </a>
                 </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                        <a class="nav-link" href="{{route('listTaxi')}}">
-                            <i class="fa fa-fw fa-table"></i>
-                            <span class="nav-link-text">Danh sách xe</span>
-                        </a>
-                    </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="{{route('listTaxi')}}">
+                        <i class="fa fa-fw fa-table"></i>
+                        <span class="nav-link-text">Danh sách xe</span>
+                    </a>
+                </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
                     <a class="nav-link" href="{{route('listDriver')}}">
                         <i class="fa fa-fw fa-table"></i>
@@ -77,15 +77,25 @@
             @endif
             @if(isTrucBan())
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="{{route('loTrinh')}}">
                         <i class="fa fa-fw fa-table"></i>
-                        <span class="nav-link-text">Quản Lý Người dùng</span>
+                        <span class="nav-link-text">Quản Lý lộ trình</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="{{route('themLoTrinh')}}">
+                        <i class="fa fa-fw fa-table"></i>
+                        <span class="nav-link-text">Thêm lộ trình mới</span>
                     </a>
                 </li>
             @endif
 
         </ul>
         <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="fa fa-fw fa-user"></i>{{getUser()->name}}</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{route('logout')}}">
                     <i class="fa fa-fw fa-sign-out"></i>Logout</a>

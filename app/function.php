@@ -41,3 +41,7 @@ function isQuanLyXe() {
 		return false;
 	}
 }
+
+function getUser(){
+	return session()->get( 'userData' );
+}

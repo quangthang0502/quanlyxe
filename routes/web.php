@@ -44,4 +44,18 @@ Route::group( [ 'middleware' => 'login' ], function () {
 		Route::post('/sua-xe/{licenceNumber}','NhanVienQuanLyXe@postUpdateTaxi');
 		Route::get('/xoa-xe/{licenceNumber}', 'NhanVienQuanLyXe@deleteTaxi')->name('xoaTaxi');
 	} );
+
+	Route::group(['prefix' => 'quan-ly-lo-trinh'],function (){
+		Route::get('/','QuanLyLoTrinh@index')->name('loTrinh');
+
+		Route::get('/chuyen-di-{codeCustomer}', 'QuanLyLoTrinh@showDetailCustomer')->name('showCustomer');
+
+		Route::get('/them-lo-trinh', 'QuanLyLoTrinh@addNewCustomer')->name('themLoTrinh');
+		Route::post('/them-lo-trinh', 'QuanLyLoTrinh@postAddNewCustomer');
+
+		Route::get('/sua-lo-trinh-{codeCustomer}', 'QuanLyLoTrinh@editCustomer')->name('suaLoTrinh');
+		Route::post('/sua-lo-trinh-{codeCustomer}', 'QuanLyLoTrinh@postEditCustomer');
+
+		Route::get('/xoa-lo-trinh-{codeCustomer}','QuanLyLoTrinh@deleteCustomer')->name('deleteCustomer');
+	});
 } );

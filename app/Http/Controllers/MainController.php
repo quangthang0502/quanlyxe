@@ -11,6 +11,9 @@ class MainController extends Controller
 		if(isQuanLyXe()){
 			return redirect()->route('quanLyXe');
 		}
+		if (isTrucBan()){
+			return redirect()->route('loTrinh');
+		}
 		return view('home');
 	}
 }

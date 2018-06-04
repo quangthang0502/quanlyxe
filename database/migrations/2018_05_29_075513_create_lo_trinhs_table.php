@@ -17,7 +17,7 @@ class CreateLoTrinhsTable extends Migration
             $table->increments('id');
             $table->string('origin');
             $table->string('destination');
-            $table->time('time');
+            $table->integer('time');
             $table->float('numberOfKm');
             $table->float('mediumTime');
             $table->bigInteger('fee');

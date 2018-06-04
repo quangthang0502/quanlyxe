@@ -13,8 +13,11 @@ class LoTrinh extends Model
 		'time',
 		'numberOfKm',
 		'mediumTime',
-		'level',
 		'fee',
 		'codeCustomer'
 	];
+
+	function getCustomer(){
+		return Customer::where('codeCustomer', $this->codeCustomer)->first();
+	}
 }
