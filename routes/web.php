@@ -11,7 +11,7 @@
 |
 */
 
-Route::get( '/dang-nhap', 'Auth\LoginController@getLogin' )->name( 'login' );
+Route::get( '/dang-nhap', 'Auth\LoginController@getLogin' )->name( 'login' )->middleware('isLogin');
 Route::post( '/dang-nhap', 'Auth\LoginController@postLogin' );
 Route::get( '/dang-xuat', 'Auth\LoginController@logOut' )->name( 'logout' );
 
@@ -57,5 +57,17 @@ Route::group( [ 'middleware' => 'login' ], function () {
 		Route::post('/sua-lo-trinh-{codeCustomer}', 'QuanLyLoTrinh@postEditCustomer');
 
 		Route::get('/xoa-lo-trinh-{codeCustomer}','QuanLyLoTrinh@deleteCustomer')->name('deleteCustomer');
+	});
+
+	Route::group(['prefix' => 'quan-ly-nhien-lieu'], function (){
+		Route::get('/', 'QuanLyNhienLieu@index')->name('nhienLieu');
+
+		Route::get('/them-xe-do-nhien-lieu', 'QuanLyNhienLieu@themNhienLieu')->name('nhapNhienLieu');
+		Route::post('/them-xe-do-nhien-lieu', 'QuanLyNhienLieu@postThemNhienLieu');
+
+		Route::get('/sua-phieu-{id}', 'QuanLyNhienLieu@suaPhieu')->name('suaPhieu');
+		Route::post('/sua-phieu-{id}', 'QuanLyNhienLieu@postSuaPhieu');
+
+		Route::get('/xoa-{id}', 'QuanLyNhienLieu@delete')->name('xoaPhieu');
 	});
 } );

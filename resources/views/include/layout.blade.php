@@ -31,9 +31,15 @@
             @endif
             @if(isQuanLyNhienLieu())
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="{{route('nhienLieu')}}">
                         <i class="fa fa-fw fa-table"></i>
-                        <span class="nav-link-text">Quản Lý Người dùng</span>
+                        <span class="nav-link-text">Quản Lý Tiếp Nhiên Liệu</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="{{route('nhapNhienLieu')}}">
+                        <i class="fa fa-fw fa-table"></i>
+                        <span class="nav-link-text">Tạo phiếu mới</span>
                     </a>
                 </li>
             @endif

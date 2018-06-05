@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePhieuTiepNhienLieusTable extends Migration
+class CreateLogStoragesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreatePhieuTiepNhienLieusTable extends Migration
      */
     public function up()
     {
-        Schema::create('phieu_tiep_nhien_lieus', function (Blueprint $table) {
+        Schema::create('log_storages', function (Blueprint $table) {
             $table->increments('id');
-            $table->time('time');
-            $table->float('numberGasoline');
-            $table->float('numberOil');
-            $table->string('licenceNumber');
-            $table->string('codeDriver');
-            $table->string('codeLocation');
+	        $table->integer('user_id');
+	        $table->text('log');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreatePhieuTiepNhienLieusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('phieu_tiep_nhien_lieus');
+        Schema::dropIfExists('log_storages');
     }
 }

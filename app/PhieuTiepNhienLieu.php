@@ -11,6 +11,16 @@ class PhieuTiepNhienLieu extends Model
 		'time',
 		'numberGasoline',
 		'numberOil',
-		'licenceNumber'
+		'licenceNumber',
+		'codeDriver',
+		'codeLocation'
 	];
+
+	public function getDriver(){
+		return TaiXe::where('codeDriver',$this->codeDriver)->first();
+	}
+
+	public function getLocation(){
+		return KhuVuc::where('codeLocation', $this->codeLocation)->first();
+	}
 }
