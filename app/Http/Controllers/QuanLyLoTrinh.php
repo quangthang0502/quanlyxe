@@ -71,19 +71,17 @@ class QuanLyLoTrinh extends Controller {
 			'destination',
 			'time',
 			'numberOfKm',
-			'fee',
-			'licenceNumber'
+			'fee'
 		] );
 
 		$taiXeTaxi = TaxiTaiXe::where( [
 			'codeDriver'    => $input['codeDriver'],
-			'licenceNumber' => $input['licenceNumber']
 		] )->first();
 
 		Customer::create( [
 			'codeCustomer'  => $input['codeCustomer'],
 			'number'        => $input['number'],
-			'licenceNumber' => $input['licenceNumber'],
+			'licenceNumber' =>  $taiXeTaxi->licenceNumber,
 			'codeDriver'    => $input['codeDriver'],
 			'codeLocation'  => $taiXeTaxi->codeLocation,
 			'phoneNumber'   => $input['phoneNumber']
@@ -132,12 +130,10 @@ class QuanLyLoTrinh extends Controller {
 			'time',
 			'numberOfKm',
 			'fee',
-			'licenceNumber'
 		] );
 
 		$taiXeTaxi = TaxiTaiXe::where( [
 			'codeDriver'    => $input['codeDriver'],
-			'licenceNumber' => $input['licenceNumber']
 		] )->first();
 
 		$customer = Customer::where( 'codeCustomer', $codeCustomer )->first();
@@ -145,7 +141,7 @@ class QuanLyLoTrinh extends Controller {
 		$customer->phoneNumber   = $input['phoneNumber'];
 		$customer->number        = $input['number'];
 		$customer->codeDriver    = $input['codeDriver'];
-		$customer->licenceNumber = $input['licenceNumber'];
+		$customer->licenceNumber = $taiXeTaxi->licenceNumber;
 		$customer->codeLocation  = $taiXeTaxi->codeLocation;
 
 		$customer->save();

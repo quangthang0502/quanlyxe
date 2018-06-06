@@ -35,7 +35,6 @@
                                 {{$a['name'].' - '.$a['licenceNumber']}}</option>
                         @endforeach
                     </select>
-                    <input type="hidden" name="licenceNumber" value="{{$a['licenceNumber']}}">
                 </div>
             </div>
             <div class="col-md-6">

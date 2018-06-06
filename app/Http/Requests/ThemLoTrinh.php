@@ -30,7 +30,6 @@ class ThemLoTrinh extends FormRequest {
 			'time'          => 'required',
 			'numberOfKm'    => 'required',
 			'fee'           => 'required',
-			'licenceNumber' => 'required'
 		];
 	}
 }

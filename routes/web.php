@@ -70,4 +70,8 @@ Route::group( [ 'middleware' => 'login' ], function () {
 
 		Route::get('/xoa-{id}', 'QuanLyNhienLieu@delete')->name('xoaPhieu');
 	});
+
+	Route::group(['prefix' => 'admin'], function (){
+
+	});
 } );
