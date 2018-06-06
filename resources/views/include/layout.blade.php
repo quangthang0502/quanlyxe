@@ -23,9 +23,15 @@
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
             @if(isAdmin())
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="{{route('admin')}}">
                         <i class="fa fa-fw fa-table"></i>
                         <span class="nav-link-text">Quản Lý Người dùng</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="{{route('adminNewUser')}}">
+                        <i class="fa fa-fw fa-table"></i>
+                        <span class="nav-link-text">Thêm người dùng</span>
                     </a>
                 </li>
             @endif
@@ -95,7 +101,12 @@
                     </a>
                 </li>
             @endif
-
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                <a class="nav-link" href="{{route('changePassword')}}">
+                    <i class="fa fa-fw fa-table"></i>
+                    <span class="nav-link-text">Đổi mật khẩu</span>
+                </a>
+            </li>
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">

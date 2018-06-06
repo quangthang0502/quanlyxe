@@ -18,6 +18,9 @@ Route::get( '/dang-xuat', 'Auth\LoginController@logOut' )->name( 'logout' );
 Route::group( [ 'middleware' => 'login' ], function () {
 	Route::get( '/', 'MainController@index' )->name( 'home' );
 
+	Route::get('/doi-mat-khau', 'MainController@changePassword')->name('changePassword');
+	Route::post('/doi-mat-khau', 'MainController@postChangePassword');
+
 
 	Route::group( [ 'prefix' => 'quan-ly-xe' ], function () {
 		Route::get( '/', 'NhanVienQuanLyXe@index' )->name( 'quanLyXe' );
@@ -72,6 +75,19 @@ Route::group( [ 'middleware' => 'login' ], function () {
 	});
 
 	Route::group(['prefix' => 'admin'], function (){
+		Route::get('/', 'AdminController@index')->name('admin');
 
+		Route::get('/them-user', 'AdminController@newUser')->name('adminNewUser');
+		Route::post('/them-user', 'AdminController@postNewUser');
+
+		Route::get('/chan-{id}', 'AdminController@denyUser')->name('chanUser');
+		Route::get('/mo-{id}', 'AdminController@permitUser')->name('moUser');
+
+		Route::get('/sua-{id}', 'AdminController@editUser')->name('adminEditUser');
+		Route::post('/sua-{id}', 'AdminController@postEditUser');
+
+		Route::post('/mat-khau-moi-{id}', 'AdminController@newPassword')->name('newPassword');
+
+		Route::get('/xoa-{id}' ,'AdminController@deleteUser')->name('adminDelUser');
 	});
 } );

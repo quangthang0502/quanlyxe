@@ -53,10 +53,17 @@ class LoginController extends Controller {
 		] )->first();
 
 		if ( $user && Hash::check( $input['password'], $user->password ) ) {
-			Auth::login( $user, true );
-			$request->session()->put( 'userData', $user );
+			if ($user->active == 1){
+				Auth::login( $user, true );
+				$request->session()->put( 'userData', $user );
 
-			return redirect()->route( 'home' );
+				return redirect()->route( 'home' );
+			}else {
+				$errors = new MessageBag( [ 'loginError' => 'Tài khoản bị khóa vui lòng liên hệ admin' ] );
+
+				return redirect()->back()->withInput()->withErrors( $errors );
+			}
+
 		} else {
 			$errors = new MessageBag( [ 'loginError' => 'Tài khoản hoặc mật khẩu không đúng' ] );
 
