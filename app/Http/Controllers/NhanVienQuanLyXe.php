@@ -31,11 +31,56 @@ class NhanVienQuanLyXe extends Controller {
 
 		}
 
-		return view( 'QuanLyXe.showAllTaxi' )->with( compact( 'result','taxiTaiXe' ) );
+		return view( 'QuanLyXe.showAllTaxi' )->with( compact( 'result','taxiTaiXe') );
+	}
+
+	function search(Request $request){
+		$name = $request['licenceNumber'];
+
+		if (isset($name) || $name != '') {
+			$taxiTaiXe = TaxiTaiXe::where('licenceNumber','like','%'.$name.'%')->paginate(8);
+			$result    = array();
+			foreach ( $taxiTaiXe as $a ) {
+				$taxi = $a->getTaxi();
+				array_push( $result, array(
+					'shift'         => $a->shift,
+					'licenceNumber' => $taxi->licenceNumber,
+					'model'         => $taxi->tGetModel(),
+					'name'          => $a->getDriver()->lastName,
+					'khuVuc'        => $a->getLocation()->nameLocation,
+					'codeDriver'    => $a->getDriver()->codeDriver,
+				) );
+			}
+			return view( 'QuanLyXe.showAllTaxi' )->with( compact( 'result','taxiTaiXe') );
+		} else {
+			$errors = new MessageBag( [ 'xxx' => 'Không có kết quả' ] );
+			return redirect()->back()->withInput()->withErrors( $errors );
+		}
 	}
 
 	function showListDriver() {
 		$taiXe = TaiXe::paginate(8);
+
+		return view( 'QuanLyXe.listDriver' )->with( compact( 'taiXe' ) );
+	}
+
+	function driverSearch(Request $request) {
+		$codeDriver = $request['codeDriver'];
+		$lastName = $request['lastName'];
+		$active = $request['active'];
+
+		if ($active != null){
+			$taiXe = TaiXe::where([
+				['codeDriver','LIKE','%'.$codeDriver.'%'],
+				['lastName','LIKE','%'.$lastName.'%'],
+				['active', '=' , $active]
+			])->paginate(8);
+		} else {
+			$taiXe = TaiXe::where([
+				['codeDriver','LIKE','%'.$codeDriver.'%'],
+				['lastName','LIKE','%'.$lastName.'%']
+			])->paginate(8);
+		}
 
 		return view( 'QuanLyXe.listDriver' )->with( compact( 'taiXe' ) );
 	}
@@ -117,6 +162,33 @@ class NhanVienQuanLyXe extends Controller {
 
 	function showListTaxi() {
 		$taxi = Taxi::paginate(8);
+
+		return view( 'QuanLyXe.listTaxi' )->with( compact( 'taxi' ) );
+	}
+
+	function taxiSearch(Request $request){
+		$licenceNumber = $request['licenceNumber'];
+		$model = $request['model'];
+		$status = $request['status'];
+
+		if ($status == 2){
+			$taxi = Taxi::where([
+				['licenceNumber','LIKE','%'.$licenceNumber.'%'],
+				['model','LIKE','%'.$model.'%'],
+				['status', '>=' , 2]
+			])->paginate(8);
+		}else if($status == 1){
+			$taxi = Taxi::where([
+				['licenceNumber','LIKE','%'.$licenceNumber.'%'],
+				['model','LIKE','%'.$model.'%'],
+				['status', '<' , 2]
+			])->paginate(8);
+		} else {
+			$taxi = Taxi::where([
+				['licenceNumber','LIKE','%'.$licenceNumber.'%'],
+				['model','LIKE','%'.$model.'%'],
+			])->paginate(8);
+		}
 
 		return view( 'QuanLyXe.listTaxi' )->with( compact( 'taxi' ) );
 	}

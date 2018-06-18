@@ -10,6 +10,18 @@
             @foreach($errors->all() as $message)
                 <div class="alert alert-danger">{{$message}}</div>
             @endforeach
+            <form action="{{route('tSearch')}}" method="post" class="form-inline" style="margin-bottom: 30px">
+                {{csrf_field()}}
+                <label for="" class="mr mr-sm-2">Tìm kiếm</label>
+                <input type="text" name="licenceNumber" placeholder="Nhập biển số" class="form-control md-2 mr-sm-2">
+                <input type="text" name="model" placeholder="Loại xe" class="form-control md-2 mr-sm-2">
+                <select name="status" id="" class="form-control md-2 mr-sm-2">
+                    <option selected value="">Tình trạng xe</option>
+                    <option value="1">Còn trống</option>
+                    <option value="2">Đã full</option>
+                </select>
+                <button type="submit" class="btn btn-primary md-2"> Tìm kiếm</button>
+            </form>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                 <tr>

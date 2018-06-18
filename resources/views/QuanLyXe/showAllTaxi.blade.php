@@ -7,6 +7,12 @@
 @section("content")
     <div class="card-body">
         <div class="table-responsive">
+            <form action="{{route('aSearch')}}" method="post" class="form-inline" style="margin-bottom: 30px">
+                {{csrf_field()}}
+                <label for="" class="mr mr-sm-2">Tìm kiếm</label>
+                <input type="text" name="licenceNumber" placeholder="Nhập biển số xe" class="form-control md-2 mr-sm-2">
+                <button type="submit" class="btn btn-primary md-2"> Tìm kiếm</button>
+            </form>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                 <tr>
@@ -19,6 +25,9 @@
                 </tr>
                 </thead>
                 <tbody>
+                @foreach($errors->all() as $message)
+                    <div class="alert alert-danger">{{$message}}</div>
+                @endforeach
                 @foreach($result as $a)
                     <tr>
                         <td>{{$a['licenceNumber']}}</td>
