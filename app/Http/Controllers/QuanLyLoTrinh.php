@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class QuanLyLoTrinh extends Controller {
 	function index() {
-		$loTrinh = LoTrinh::all();
+		$loTrinh = LoTrinh::paginate(8);
 		$result  = array();
 
 		foreach ( $loTrinh as $a ) {
@@ -25,7 +25,7 @@ class QuanLyLoTrinh extends Controller {
 			] );
 		}
 
-		return view( 'QuanLyLoTrinh.index' )->with( compact( 'result' ) );
+		return view( 'QuanLyLoTrinh.index' )->with( compact( 'result','loTrinh' ) );
 	}
 
 	function showDetailCustomer( $codeCustomer ) {

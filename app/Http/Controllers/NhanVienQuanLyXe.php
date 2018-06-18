@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 class NhanVienQuanLyXe extends Controller {
 	//
 	function index() {
-		$taxiTaiXe = TaxiTaiXe::all();
+		$taxiTaiXe = TaxiTaiXe::paginate(8);
 		$result    = array();
 		foreach ( $taxiTaiXe as $a ) {
 			$taxi = $a->getTaxi();
@@ -31,11 +31,11 @@ class NhanVienQuanLyXe extends Controller {
 
 		}
 
-		return view( 'QuanLyXe.showAllTaxi' )->with( compact( 'result' ) );
+		return view( 'QuanLyXe.showAllTaxi' )->with( compact( 'result','taxiTaiXe' ) );
 	}
 
 	function showListDriver() {
-		$taiXe = TaiXe::all();
+		$taiXe = TaiXe::paginate(8);
 
 		return view( 'QuanLyXe.listDriver' )->with( compact( 'taiXe' ) );
 	}
@@ -116,7 +116,7 @@ class NhanVienQuanLyXe extends Controller {
 	}
 
 	function showListTaxi() {
-		$taxi = Taxi::all();
+		$taxi = Taxi::paginate(8);
 
 		return view( 'QuanLyXe.listTaxi' )->with( compact( 'taxi' ) );
 	}

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class QuanLyNhienLieu extends Controller {
 	//
 	function index() {
-		$nhienLieu = PhieuTiepNhienLieu::all();
+		$nhienLieu = PhieuTiepNhienLieu::paginate(8);
 		$result    = array();
 
 		foreach ( $nhienLieu as $a ) {
@@ -27,7 +27,7 @@ class QuanLyNhienLieu extends Controller {
 			] );
 		}
 
-		return view( 'QuanLyNhienLieu.index' )->with(compact('result'));
+		return view( 'QuanLyNhienLieu.index' )->with(compact('result','nhienLieu'));
 	}
 
 	function themNhienLieu() {

@@ -13,7 +13,9 @@
 </head>
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="{{route('home')}}">ThanhCongTaxi</a>
+    <a class="navbar-brand" href="{{route('home')}}">
+        <img src="{{url('./img/logo_thanh_cong.png')}}" alt="Logo" style="width: 200px; height: 40px">
+    </a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -108,6 +110,9 @@
                 </a>
             </li>
         </ul>
+        <ul class="navbar-nav t-nav">
+            <li>Không ngừng đổi mới và hoàn thiện</li>
+        </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="nav-link" href="">
@@ -125,7 +130,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="#">Dashboard</a>
+                <a href="{{route('home')}}">Dashboard</a>
             </li>
             <li class="breadcrumb-item active"> @yield('name')</li>
         </ol>

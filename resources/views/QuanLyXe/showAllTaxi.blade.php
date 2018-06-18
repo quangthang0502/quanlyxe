@@ -46,6 +46,7 @@
                 @endforeach
                 </tbody>
             </table>
+            {{$taxiTaiXe->appends(['sort' => 'id'])->links()}}
         </div>
     </div>
 @endsection

@@ -7,6 +7,7 @@
 @section("content")
     <div class="row">
         <div class="col-md-6">
+            <h3 class="title">Thông tin tài xế</h3>
             <ul class="t-box">
                 <li><span>Mã tài xế :</span> {{$driver->codeDriver}}</li>
                 <li><span>Họ và tên :</span> {{$driver->firstName.' '.$driver->lastName}}</li>
@@ -31,6 +32,7 @@
             </ul>
         </div>
         <div class="col-md-6">
+            <h3 class="title">Thông tin xe được bàn giao</h3>
             <ul class="t-box">
                 @if($taxi && $shift)
                 <li><span>Biển số :</span> {{$taxi->licenceNumber}}</li>

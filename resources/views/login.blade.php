@@ -10,12 +10,16 @@
     <link rel="stylesheet" href="{{url('node_modules/font-awesome/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{url('css/main.css')}}">
 </head>
-<body>
+<body id="login">
 <div class="container">
+    <h1>Phầm mềm quản lý xe taxi Thành Công</h1>
+    <div class="login-logo">
+        <img src="{{url('./img/logo_thanh_cong.png')}}" alt="Logo">
+    </div>
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <div class="section" style="margin-top: 30%">
+            <div class="section">
                 <h3 class="title">Đăng nhập</h3>
                 <div class="section-body">
                     <form action="{{route('login')}}" method="post">

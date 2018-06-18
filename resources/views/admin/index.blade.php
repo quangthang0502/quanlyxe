@@ -61,6 +61,7 @@
                 @endforeach
                 </tbody>
             </table>
+            {{$user->appends(['sort' => 'id'])->links()}}
         </div>
     </div>
 @endsection

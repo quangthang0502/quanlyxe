@@ -45,6 +45,7 @@
                 @endforeach
                 </tbody>
             </table>
+            {{$nhienLieu->appends(['sort' => 'id'])->links()}}
         </div>
     </div>
 @endsection

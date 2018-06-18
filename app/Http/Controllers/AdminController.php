@@ -12,7 +12,7 @@ use Illuminate\Support\MessageBag;
 class AdminController extends Controller {
 	//
 	function index() {
-		$user = User::where( 'level', '!=', '0' )->get();
+		$user = User::where( 'level', '!=', '0' )->paginate(8);
 
 		return view( 'admin.index' )->with( compact( 'user' ) );
 	}

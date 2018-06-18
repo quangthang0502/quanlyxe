@@ -54,6 +54,9 @@
                 @endforeach
                 </tbody>
             </table>
+
+            {{$taiXe->appends(['sort' => 'id'])->links()}}
+
         </div>
     </div>
 @endsection

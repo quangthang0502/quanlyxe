@@ -48,6 +48,7 @@
                 @endforeach
                 </tbody>
             </table>
+            {{$loTrinh->appends(['sort' => 'id'])->links()}}
         </div>
     </div>
 @endsection
