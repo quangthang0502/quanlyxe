@@ -7,10 +7,12 @@
 @section("content")
     <div class="card-body">
         <div class="table-responsive">
-            <form action="{{route('aSearch')}}" method="post" class="form-inline" style="margin-bottom: 30px">
+            <form action="{{route('aSearch')}}" method="get" class="form-inline" style="margin-bottom: 30px">
                 {{csrf_field()}}
                 <label for="" class="mr mr-sm-2">Tìm kiếm</label>
-                <input type="text" name="licenceNumber" placeholder="Nhập biển số xe" class="form-control md-2 mr-sm-2">
+                <input type="text" name="licenceNumber" placeholder="Nhập biển số xe"
+                       @if(isset($name)) value="{{$name}}" @endif
+                       class="form-control md-2 mr-sm-2" >
                 <button type="submit" class="btn btn-primary md-2"> Tìm kiếm</button>
             </form>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -55,7 +57,16 @@
                 @endforeach
                 </tbody>
             </table>
-            {{$taxiTaiXe->appends(['sort' => 'id'])->links()}}
+
+            @if(!isset($name))
+                {{$taxiTaiXe->appends(['sort' => 'id'])->links()}}
+            @else
+                {{$taxiTaiXe->appends([
+                'sort' => 'id',
+                '_token' => csrf_token(),
+                'name' => $name
+            ])->links()}}
+            @endif
         </div>
     </div>
 @endsection

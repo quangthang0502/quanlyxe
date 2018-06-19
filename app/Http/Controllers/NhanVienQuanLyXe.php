@@ -51,7 +51,7 @@ class NhanVienQuanLyXe extends Controller {
 					'codeDriver'    => $a->getDriver()->codeDriver,
 				) );
 			}
-			return view( 'QuanLyXe.showAllTaxi' )->with( compact( 'result','taxiTaiXe') );
+			return view( 'QuanLyXe.showAllTaxi' )->with( compact( 'result','taxiTaiXe','name') );
 		} else {
 			$errors = new MessageBag( [ 'xxx' => 'Không có kết quả' ] );
 			return redirect()->back()->withInput()->withErrors( $errors );
@@ -82,7 +82,7 @@ class NhanVienQuanLyXe extends Controller {
 			])->paginate(8);
 		}
 
-		return view( 'QuanLyXe.listDriver' )->with( compact( 'taiXe' ) );
+		return view( 'QuanLyXe.listDriver' )->with( compact( 'taiXe' ,'codeDriver', 'lastName', 'active') );
 	}
 
 	function showFormAddDriver() {
@@ -166,7 +166,7 @@ class NhanVienQuanLyXe extends Controller {
 		return view( 'QuanLyXe.listTaxi' )->with( compact( 'taxi' ) );
 	}
 
-	function taxiSearch(Request $request){
+	function getTaxiSearch(Request $request){
 		$licenceNumber = $request['licenceNumber'];
 		$model = $request['model'];
 		$status = $request['status'];
@@ -190,7 +190,7 @@ class NhanVienQuanLyXe extends Controller {
 			])->paginate(8);
 		}
 
-		return view( 'QuanLyXe.listTaxi' )->with( compact( 'taxi' ) );
+		return view( 'QuanLyXe.listTaxi' )->with( compact( 'taxi' ,'licenceNumber','model','status') );
 	}
 
 	function postAddInforNewTaxi( TaxiFormRequest $request ) {

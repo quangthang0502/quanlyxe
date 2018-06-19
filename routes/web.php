@@ -47,9 +47,9 @@ Route::group( [ 'middleware' => 'login' ], function () {
 		Route::post('/sua-xe/{licenceNumber}','NhanVienQuanLyXe@postUpdateTaxi');
 		Route::get('/xoa-xe/{licenceNumber}', 'NhanVienQuanLyXe@deleteTaxi')->name('xoaTaxi');
 
-		Route::post('/search', 'NhanVienQuanLyXe@search')->name('aSearch');
-		Route::post('/danh-sach-tai-xe/driver-search', 'NhanVienQuanLyXe@driverSearch')->name('dSearch');
-		Route::post('/danh-sach-xe/taxi-search', 'NhanVienQuanLyXe@taxiSearch')->name('tSearch');
+		Route::get('/search', 'NhanVienQuanLyXe@search')->name('aSearch');
+		Route::get('/danh-sach-tai-xe/driver-search', 'NhanVienQuanLyXe@driverSearch')->name('dSearch');
+		Route::get('/danh-sach-xe/taxi-search', 'NhanVienQuanLyXe@getTaxiSearch')->name('tSearch');
 	} );
 
 	Route::group(['prefix' => 'quan-ly-lo-trinh'],function (){
