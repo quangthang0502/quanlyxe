@@ -36,6 +36,14 @@
                         </tr>
                     @endforeach
                 @endif
+                @if(isset($resultCount) && isset($resultKm) && isset($resultMoney))
+                    <tr style="font-weight: bold; background-color: #e1e1e1">
+                        <td>Tổng cộng </td>
+                        <td>{{$resultCount}}</td>
+                        <td>{{$resultKm}} Km</td>
+                        <td>{{$resultMoney}} đồng</td>
+                    </tr>
+                @endif
                 </tbody>
             </table>
             {{--{{$loTrinh->appends(['sort' => 'id'])->links()}}--}}

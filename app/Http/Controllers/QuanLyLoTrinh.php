@@ -32,7 +32,37 @@ class QuanLyLoTrinh extends Controller
 
     function findByDriver()
     {
-        return view('QuanLyLoTrinh.findByDriver');
+        $driver = TaiXe::all();
+        $result = array();
+        $resultCount = 0;
+        $resultKm = 0;
+        $resultMoney = 0;
+        foreach ($driver as $d) {
+            $totalMoney = 0;
+            $totalKm = 0;
+            $count = 0;
+            $customer = Customer::where('codeDriver', $d->codeDriver)->get();
+
+            foreach ($customer as $c) {
+                $count++;
+                $var = $c->getLoTrinh();
+                $totalKm = $totalKm + $var->numberOfKm;
+                $totalMoney = $totalMoney + $var->fee;
+            }
+            if ($count != 0){
+                array_push($result, [
+                    'driver' => $d,
+                    'count' => $count,
+                    'totalKm' => $totalKm,
+                    'totalMoney' => $totalMoney
+                ]);
+                $resultCount = $resultCount + $count;
+                $resultKm = $resultKm + $totalKm;
+                $resultMoney = $resultMoney + $totalMoney;
+            }
+        }
+
+        return view('QuanLyLoTrinh.findByDriver')->with(compact('result', 'resultCount', 'resultKm', 'resultMoney'));
     }
 
     function postFindByDriver(Request $request)
