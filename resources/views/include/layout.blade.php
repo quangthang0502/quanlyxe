@@ -102,6 +102,12 @@
                         <span class="nav-link-text">Thêm lộ trình mới</span>
                     </a>
                 </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="{{route('ThongKeLotrinh')}}">
+                        <i class="fa fa-fw fa-table"></i>
+                        <span class="nav-link-text">Thống kê</span>
+                    </a>
+                </li>
             @endif
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
                 <a class="nav-link" href="{{route('changePassword')}}">

@@ -75,6 +75,6 @@ class LoginController extends Controller {
 		Auth::logout();
 		$request->session()->forget( 'userData' );
 
-		return redirect()->back();
+		return redirect()->route('login');
 	}
 }

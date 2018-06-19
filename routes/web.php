@@ -64,6 +64,9 @@ Route::group( [ 'middleware' => 'login' ], function () {
 		Route::post('/sua-lo-trinh-{codeCustomer}', 'QuanLyLoTrinh@postEditCustomer');
 
 		Route::get('/xoa-lo-trinh-{codeCustomer}','QuanLyLoTrinh@deleteCustomer')->name('deleteCustomer');
+
+		Route::get('/thong-ke', 'QuanLyLoTrinh@findByDriver')->name('ThongKeLotrinh');
+		Route::post('/thong-ke', 'QuanLyLoTrinh@postFindByDriver');
 	});
 
 	Route::group(['prefix' => 'quan-ly-nhien-lieu'], function (){
