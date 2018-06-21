@@ -50,6 +50,12 @@
                         <span class="nav-link-text">Tạo phiếu mới</span>
                     </a>
                 </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="{{route('ThongKeNhienLieu')}}">
+                        <i class="fa fa-fw fa-table"></i>
+                        <span class="nav-link-text">Thống kê</span>
+                    </a>
+                </li>
             @endif
             @if(isQuanLyXe())
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">

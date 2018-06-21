@@ -79,6 +79,8 @@ Route::group( [ 'middleware' => 'login' ], function () {
 		Route::post('/sua-phieu-{id}', 'QuanLyNhienLieu@postSuaPhieu');
 
 		Route::get('/xoa-{id}', 'QuanLyNhienLieu@delete')->name('xoaPhieu');
+
+		Route::get('/thong-ke', 'QuanLyNhienLieu@thongKe')->name('ThongKeNhienLieu');
 	});
 
 	Route::group(['prefix' => 'admin'], function (){

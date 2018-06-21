@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
 	    $this->call(QuanLyXe::class);
 	    $this->call(QuanLyLoTrinh::class);
 	    $this->call(QuanLyNhienLieu::class);
-	    $this->call(TaxiSeed::class);
+//	    $this->call(TaxiSeed::class);
     }
 }
