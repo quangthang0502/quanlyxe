@@ -69,25 +69,27 @@
                         <td>
                             <div class="btn-group btn-group-sm">
                                 <a class="btn btn-primary" href="{{route('TaxiDetal',$a->codeDriver)}}">Xem</a>
-                                <a class="btn btn-success" href="{{route('capNhapTaiXe',$a->codeDriver)}}">Sửa</a>
-                                <a class="btn btn-danger" href="{{route('xoaTaiXe',$a->codeDriver)}}">Xóa</a>
+                                @if(isQuanLyXe())
+                                    <a class="btn btn-success" href="{{route('capNhapTaiXe',$a->codeDriver)}}">Sửa</a>
+                                    <a class="btn btn-danger" href="{{route('xoaTaiXe',$a->codeDriver)}}">Xóa</a>
+                                @endif
                             </div>
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
-                @if(!isset($codeDriver) && !isset($lastName) && !isset($active))
-                    {{$taiXe->appends(['sort' => 'id'])->links()}}
-                @else
-                    {{$taiXe->appends([
-                    'sort' => 'id',
-                    '_token' => csrf_token(),
-                    'codeDriver' => $codeDriver,
-                    'lastName' => $lastName,
-                    'active' => $active,
-                ])->links()}}
-                @endif
+            @if(!isset($codeDriver) && !isset($lastName) && !isset($active))
+                {{$taiXe->appends(['sort' => 'id'])->links()}}
+            @else
+                {{$taiXe->appends([
+                'sort' => 'id',
+                '_token' => csrf_token(),
+                'codeDriver' => $codeDriver,
+                'lastName' => $lastName,
+                'active' => $active,
+            ])->links()}}
+            @endif
 
 
         </div>

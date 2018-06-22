@@ -27,6 +27,8 @@ class TaxiFormRequest extends FormRequest
 	        'licenceNumber' => 'required|min:3',
 	        'model' => 'required',
 	        'numberOfSeat' => 'required',
+	        'frameNumber' => 'required',
+	        'machineNumber' => 'required',
         ];
     }
 
@@ -35,6 +37,8 @@ class TaxiFormRequest extends FormRequest
 			'licenceNumber.required' => 'Thông tin biển số không được để trống',
 			'model.required' => 'Thông tin Model không được để trống',
 			'numberOfSeat.required' => 'Thông tin Số lượng ghế không được để trống',
+			'frameNumber.required' => 'Thông tin không được để trống',
+			'machineNumber.required' => 'Thông tin không được để trống',
 		];
 	}
 }

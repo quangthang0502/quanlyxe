@@ -34,6 +34,8 @@ class QuanLyXe extends Seeder
 		    'licenceNumber' => '11111',
 		    'model'        => 'LX',
 		    'numberOfSeat'     => '4',
+		    'machineNumber' => '123456',
+		    'frameNumber' => '654321',
 		    'status'     => 1,
 	    ] );
 

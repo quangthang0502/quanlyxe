@@ -24,6 +24,15 @@
             <input type="text" name="numberOfSeat" class="form-control" id="numberOfSeat">
         </div>
 
+        <div class="form-group">
+            <label for="frameNumber">Số khung</label>
+            <input type="text" name="frameNumber" class="form-control" id="frameNumber">
+        </div>
+        <div class="form-group">
+            <label for="machineNumber">Số máy:</label>
+            <input type="text" name="machineNumber" class="form-control" id="machineNumber">
+        </div>
+
         <button type="submit" class="btn btn-primary" style="float:right;">Cập nhập</button>
     </form>
 @endsection

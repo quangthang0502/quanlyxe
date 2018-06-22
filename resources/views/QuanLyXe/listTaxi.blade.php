@@ -37,8 +37,12 @@
                     <th>Biển số:</th>
                     <th>Model</th>
                     <th>Số lượng ghế</th>
+                    <th>Số khung</th>
+                    <th>Số máy</th>
                     <th>Phân phối cho</th>
-                    <th>Hành động</th>
+                    @if(isQuanLyXe())
+                        <th>Hành động</th>
+                    @endif
                 </tr>
                 </thead>
                 <tbody>
@@ -47,15 +51,19 @@
                         <td>{{$a->licenceNumber}}</td>
                         <td>{{$a->model}}</td>
                         <td>{{$a->numberOfSeat}}</td>
+                        <td>{{$a->frameNumber}}</td>
+                        <td>{{$a->machineNumber}}</td>
                         <td>
                             {{$a->status}} tài xế
                         </td>
-                        <td>
-                            <div class="btn-group btn-group-sm">
-                                <a class="btn btn-success" href="{{route('capNhapTaxi',$a->licenceNumber)}}">Sửa</a>
-                                <a class="btn btn-danger" href="{{route('xoaTaxi',$a->licenceNumber)}}">Xóa</a>
-                            </div>
-                        </td>
+                        @if(isQuanLyXe())
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <a class="btn btn-success" href="{{route('capNhapTaxi',$a->licenceNumber)}}">Sửa</a>
+                                    <a class="btn btn-danger" href="{{route('xoaTaxi',$a->licenceNumber)}}">Xóa</a>
+                                </div>
+                            </td>
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>

@@ -18,6 +18,8 @@ class CreateTaxisTable extends Migration
             $table->string('licenceNumber');
             $table->string('model');
             $table->string('numberOfSeat');
+            $table->string('frameNumber');
+            $table->string('machineNumber');
             $table->integer('status');
             $table->timestamps();
         });

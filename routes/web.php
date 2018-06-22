@@ -21,35 +21,37 @@ Route::group( [ 'middleware' => 'login' ], function () {
 	Route::get('/doi-mat-khau', 'MainController@changePassword')->name('changePassword');
 	Route::post('/doi-mat-khau', 'MainController@postChangePassword');
 
+	Route::get( '/danh-sach-tai-xe', 'NhanVienQuanLyXe@showListDriver' )->name( 'listDriver' );
+	Route::get( '/them-tai-xe', 'NhanVienQuanLyXe@showFormAddDriver' )->name( 'showFormAddDriver' );
+	Route::post( '/them-tai-xe', 'NhanVienQuanLyXe@postFormAddDriver' );
+	Route::get('/cap-nhap-tai-xe/{codeDriver}', 'NhanVienQuanLyXe@updateDriver')->name('capNhapTaiXe');
+	Route::post('/cap-nhap-tai-xe/{codeDriver}','NhanVienQuanLyXe@postUpdateDriver');
+	Route::get('/xoa-tai-xe/{codeDriver}','NhanVienQuanLyXe@deleteDriver')->name('xoaTaiXe');
+
+
+	Route::get( '/danh-sach-xe', 'NhanVienQuanLyXe@showListTaxi' )->name( 'listTaxi' );
+
+	Route::get( '/tai-xe-{codeDriver}', 'NhanVienQuanLyXe@showDetal' )->name( 'TaxiDetal' );
+
+	Route::get( '/them-xe', 'NhanVienQuanLyXe@getAddInforNewTaxi' )->name( 'formNewTaxi' );
+	Route::post( '/them-xe', 'NhanVienQuanLyXe@postAddInforNewTaxi' );
+	Route::get('/sua-xe/{licenceNumber}', 'NhanVienQuanLyXe@updateTaxi')->name('capNhapTaxi');
+	Route::post('/sua-xe/{licenceNumber}','NhanVienQuanLyXe@postUpdateTaxi');
+	Route::get('/xoa-xe/{licenceNumber}', 'NhanVienQuanLyXe@deleteTaxi')->name('xoaTaxi');
+
+	Route::get('/danh-sach-tai-xe/driver-search', 'NhanVienQuanLyXe@driverSearch')->name('dSearch');
+	Route::get('/danh-sach-xe/taxi-search', 'NhanVienQuanLyXe@getTaxiSearch')->name('tSearch');
+
 
 	Route::group( [ 'prefix' => 'quan-ly-xe' ], function () {
 		Route::get( '/', 'NhanVienQuanLyXe@index' )->name( 'quanLyXe' );
 
-		Route::get( '/danh-sach-tai-xe', 'NhanVienQuanLyXe@showListDriver' )->name( 'listDriver' );
-		Route::get( '/them-tai-xe', 'NhanVienQuanLyXe@showFormAddDriver' )->name( 'showFormAddDriver' );
-		Route::post( '/them-tai-xe', 'NhanVienQuanLyXe@postFormAddDriver' );
-		Route::get('/cap-nhap-tai-xe/{codeDriver}', 'NhanVienQuanLyXe@updateDriver')->name('capNhapTaiXe');
-		Route::post('/cap-nhap-tai-xe/{codeDriver}','NhanVienQuanLyXe@postUpdateDriver');
-		Route::get('/xoa-tai-xe/{codeDriver}','NhanVienQuanLyXe@deleteDriver')->name('xoaTaiXe');
+		Route::get('/search', 'NhanVienQuanLyXe@search')->name('aSearch');
 
-
-		Route::get( '/danh-sach-xe', 'NhanVienQuanLyXe@showListTaxi' )->name( 'listTaxi' );
 
 		Route::get( '/phan-xe', 'NhanVienQuanLyXe@partitionTaxiForDriver' )->name( 'phanXe' );
 		Route::post( '/phan-xe', 'NhanVienQuanLyXe@postPartitionTaxiForDriver' );
 		Route::get( '/xoa-phan-xe/{licenceNumber}/{codeDriver}', 'NhanVienQuanLyXe@deletePartitionTaxiForDriver' )->name( 'xoaPhanXe' );
-
-		Route::get( '/tai-xe-{codeDriver}', 'NhanVienQuanLyXe@showDetal' )->name( 'TaxiDetal' );
-
-		Route::get( '/them-xe', 'NhanVienQuanLyXe@getAddInforNewTaxi' )->name( 'formNewTaxi' );
-		Route::post( '/them-xe', 'NhanVienQuanLyXe@postAddInforNewTaxi' );
-		Route::get('/sua-xe/{licenceNumber}', 'NhanVienQuanLyXe@updateTaxi')->name('capNhapTaxi');
-		Route::post('/sua-xe/{licenceNumber}','NhanVienQuanLyXe@postUpdateTaxi');
-		Route::get('/xoa-xe/{licenceNumber}', 'NhanVienQuanLyXe@deleteTaxi')->name('xoaTaxi');
-
-		Route::get('/search', 'NhanVienQuanLyXe@search')->name('aSearch');
-		Route::get('/danh-sach-tai-xe/driver-search', 'NhanVienQuanLyXe@driverSearch')->name('dSearch');
-		Route::get('/danh-sach-xe/taxi-search', 'NhanVienQuanLyXe@getTaxiSearch')->name('tSearch');
 	} );
 
 	Route::group(['prefix' => 'quan-ly-lo-trinh'],function (){

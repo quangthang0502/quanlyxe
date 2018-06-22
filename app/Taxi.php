@@ -12,6 +12,8 @@ class Taxi extends Model {
 		'model',
 		'numberOfSeat',
 		'status',
+		'frameNumber',
+		'machineNumber'
 	];
 
 	public function tGetModel(){

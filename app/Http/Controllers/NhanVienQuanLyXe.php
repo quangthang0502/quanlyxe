@@ -197,7 +197,9 @@ class NhanVienQuanLyXe extends Controller {
 		$input = $request->only( [
 			'licenceNumber',
 			'numberOfSeat',
-			'model'
+			'model',
+			'frameNumber',
+			'machineNumber'
 		] );
 
 		$taxi = Taxi::where( 'licenceNumber', $input['licenceNumber'] )->first();
@@ -208,6 +210,8 @@ class NhanVienQuanLyXe extends Controller {
 				'licenceNumber' => $input['licenceNumber'],
 				'numberOfSeat'  => $input['numberOfSeat'],
 				'model'         => $input['model'],
+				'frameNumber'         => $input['frameNumber'],
+				'machineNumber'         => $input['machineNumber'],
 				'status'        => 0
 			] );
 
@@ -354,13 +358,17 @@ class NhanVienQuanLyXe extends Controller {
 		$input = $request->only( [
 			'licenceNumber',
 			'numberOfSeat',
-			'model'
+			'model',
+			'frameNumber',
+			'machineNumber'
 		] );
 
 		$taxi = Taxi::where( 'licenceNumber', $licenceNumber )->first();
 		$taxi->licenceNumber = $input['licenceNumber'];
 		$taxi->numberOfSeat = $input['numberOfSeat'];
 		$taxi->setModel($input['model']);
+		$taxi->frameNumber = $input['frameNumber'];
+		$taxi->machineNumber = $input['machineNumber'];
 
 		$taxi->save();
 
