@@ -115,6 +115,12 @@
                     <span class="nav-link-text">Danh sách tài xế</span>
                 </a>
             </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                <a class="nav-link" href="{{route('tongHopThongKe')}}">
+                    <i class="fa fa-fw fa-table"></i>
+                    <span class="nav-link-text">Tổng hợp thống kê</span>
+                </a>
+            </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
                 <a class="nav-link" href="{{route('changePassword')}}">
                     <i class="fa fa-fw fa-table"></i>
@@ -155,6 +161,5 @@
 
 <script src="{{url('node_modules/jquery/dist/jquery.min.js')}}"></script>
 <script src="{{url('node_modules/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-<script src="{{url('js/admin.js')}}"></script>
 </body>
 </html>

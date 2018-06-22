@@ -27,7 +27,10 @@ class TaxiSeed extends Seeder
 		        'licenceNumber' => $faker->numberBetween('1000000','9999999'),
 		        'numberOfSeat'  => $model[$a][1],
 		        'model'         => $model[$a][0],
-		        'status'        => 0
+		        'status'        => 0,
+		        'frameNumber' => $faker->numberBetween('1000000','100000000'),
+		        'machineNumber' => $faker->numberBetween('1000000','100000000'),
+		        'created_at' => $faker->dateTimeThisYear
 	        ] );
         }
 

@@ -42,6 +42,9 @@ Route::group( [ 'middleware' => 'login' ], function () {
 	Route::get('/danh-sach-tai-xe/driver-search', 'NhanVienQuanLyXe@driverSearch')->name('dSearch');
 	Route::get('/danh-sach-xe/taxi-search', 'NhanVienQuanLyXe@getTaxiSearch')->name('tSearch');
 
+	Route::get('/thong-ke', 'MainController@thongKe')->name('tongHopThongKe');
+	Route::get('/sieu-thong-ke-{id}','MainController@sieuThongKe')->name('sieuThongKe');
+
 
 	Route::group( [ 'prefix' => 'quan-ly-xe' ], function () {
 		Route::get( '/', 'NhanVienQuanLyXe@index' )->name( 'quanLyXe' );
