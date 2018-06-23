@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DriverRequest;
 use App\Http\Requests\PhanXeRequest;
+use App\Http\Requests\SuaChuaR;
 use App\Http\Requests\TaxiFormRequest;
 use App\KhuVuc;
+use App\SuaChua;
 use App\TaiXe;
 use App\Taxi;
 use App\TaxiTaiXe;
@@ -16,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 class NhanVienQuanLyXe extends Controller {
 	//
 	function index() {
-		$taxiTaiXe = TaxiTaiXe::paginate(8);
+		$taxiTaiXe = TaxiTaiXe::paginate( 8 );
 		$result    = array();
 		foreach ( $taxiTaiXe as $a ) {
 			$taxi = $a->getTaxi();
@@ -31,14 +33,14 @@ class NhanVienQuanLyXe extends Controller {
 
 		}
 
-		return view( 'QuanLyXe.showAllTaxi' )->with( compact( 'result','taxiTaiXe') );
+		return view( 'QuanLyXe.showAllTaxi' )->with( compact( 'result', 'taxiTaiXe' ) );
 	}
 
-	function search(Request $request){
+	function search( Request $request ) {
 		$name = $request['licenceNumber'];
 
-		if (isset($name) || $name != '') {
-			$taxiTaiXe = TaxiTaiXe::where('licenceNumber','like','%'.$name.'%')->paginate(8);
+		if ( isset( $name ) || $name != '' ) {
+			$taxiTaiXe = TaxiTaiXe::where( 'licenceNumber', 'like', '%' . $name . '%' )->paginate( 8 );
 			$result    = array();
 			foreach ( $taxiTaiXe as $a ) {
 				$taxi = $a->getTaxi();
@@ -51,38 +53,40 @@ class NhanVienQuanLyXe extends Controller {
 					'codeDriver'    => $a->getDriver()->codeDriver,
 				) );
 			}
-			return view( 'QuanLyXe.showAllTaxi' )->with( compact( 'result','taxiTaiXe','name') );
+
+			return view( 'QuanLyXe.showAllTaxi' )->with( compact( 'result', 'taxiTaiXe', 'name' ) );
 		} else {
 			$errors = new MessageBag( [ 'xxx' => 'Không có kết quả' ] );
+
 			return redirect()->back()->withInput()->withErrors( $errors );
 		}
 	}
 
 	function showListDriver() {
-		$taiXe = TaiXe::paginate(8);
+		$taiXe = TaiXe::paginate( 8 );
 
 		return view( 'QuanLyXe.listDriver' )->with( compact( 'taiXe' ) );
 	}
 
-	function driverSearch(Request $request) {
+	function driverSearch( Request $request ) {
 		$codeDriver = $request['codeDriver'];
-		$lastName = $request['lastName'];
-		$active = $request['active'];
+		$lastName   = $request['lastName'];
+		$active     = $request['active'];
 
-		if ($active != null){
-			$taiXe = TaiXe::where([
-				['codeDriver','LIKE','%'.$codeDriver.'%'],
-				['lastName','LIKE','%'.$lastName.'%'],
-				['active', '=' , $active]
-			])->paginate(8);
+		if ( $active != null ) {
+			$taiXe = TaiXe::where( [
+				[ 'codeDriver', 'LIKE', '%' . $codeDriver . '%' ],
+				[ 'lastName', 'LIKE', '%' . $lastName . '%' ],
+				[ 'active', '=', $active ]
+			] )->paginate( 8 );
 		} else {
-			$taiXe = TaiXe::where([
-				['codeDriver','LIKE','%'.$codeDriver.'%'],
-				['lastName','LIKE','%'.$lastName.'%']
-			])->paginate(8);
+			$taiXe = TaiXe::where( [
+				[ 'codeDriver', 'LIKE', '%' . $codeDriver . '%' ],
+				[ 'lastName', 'LIKE', '%' . $lastName . '%' ]
+			] )->paginate( 8 );
 		}
 
-		return view( 'QuanLyXe.listDriver' )->with( compact( 'taiXe' ,'codeDriver', 'lastName', 'active') );
+		return view( 'QuanLyXe.listDriver' )->with( compact( 'taiXe', 'codeDriver', 'lastName', 'active' ) );
 	}
 
 	function showFormAddDriver() {
@@ -161,36 +165,36 @@ class NhanVienQuanLyXe extends Controller {
 	}
 
 	function showListTaxi() {
-		$taxi = Taxi::paginate(8);
+		$taxi = Taxi::paginate( 8 );
 
 		return view( 'QuanLyXe.listTaxi' )->with( compact( 'taxi' ) );
 	}
 
-	function getTaxiSearch(Request $request){
+	function getTaxiSearch( Request $request ) {
 		$licenceNumber = $request['licenceNumber'];
-		$model = $request['model'];
-		$status = $request['status'];
+		$model         = $request['model'];
+		$status        = $request['status'];
 
-		if ($status == 2){
-			$taxi = Taxi::where([
-				['licenceNumber','LIKE','%'.$licenceNumber.'%'],
-				['model','LIKE','%'.$model.'%'],
-				['status', '>=' , 2]
-			])->paginate(8);
-		}else if($status == 1){
-			$taxi = Taxi::where([
-				['licenceNumber','LIKE','%'.$licenceNumber.'%'],
-				['model','LIKE','%'.$model.'%'],
-				['status', '<' , 2]
-			])->paginate(8);
+		if ( $status == 2 ) {
+			$taxi = Taxi::where( [
+				[ 'licenceNumber', 'LIKE', '%' . $licenceNumber . '%' ],
+				[ 'model', 'LIKE', '%' . $model . '%' ],
+				[ 'status', '>=', 2 ]
+			] )->paginate( 8 );
+		} else if ( $status == 1 ) {
+			$taxi = Taxi::where( [
+				[ 'licenceNumber', 'LIKE', '%' . $licenceNumber . '%' ],
+				[ 'model', 'LIKE', '%' . $model . '%' ],
+				[ 'status', '<', 2 ]
+			] )->paginate( 8 );
 		} else {
-			$taxi = Taxi::where([
-				['licenceNumber','LIKE','%'.$licenceNumber.'%'],
-				['model','LIKE','%'.$model.'%'],
-			])->paginate(8);
+			$taxi = Taxi::where( [
+				[ 'licenceNumber', 'LIKE', '%' . $licenceNumber . '%' ],
+				[ 'model', 'LIKE', '%' . $model . '%' ],
+			] )->paginate( 8 );
 		}
 
-		return view( 'QuanLyXe.listTaxi' )->with( compact( 'taxi' ,'licenceNumber','model','status') );
+		return view( 'QuanLyXe.listTaxi' )->with( compact( 'taxi', 'licenceNumber', 'model', 'status' ) );
 	}
 
 	function postAddInforNewTaxi( TaxiFormRequest $request ) {
@@ -210,8 +214,8 @@ class NhanVienQuanLyXe extends Controller {
 				'licenceNumber' => $input['licenceNumber'],
 				'numberOfSeat'  => $input['numberOfSeat'],
 				'model'         => $input['model'],
-				'frameNumber'         => $input['frameNumber'],
-				'machineNumber'         => $input['machineNumber'],
+				'frameNumber'   => $input['frameNumber'],
+				'machineNumber' => $input['machineNumber'],
 				'status'        => 0
 			] );
 
@@ -257,7 +261,7 @@ class NhanVienQuanLyXe extends Controller {
 			$taxi->status = $taxi->status + 1;
 			$taxi->save();
 
-			$driver = TaiXe::where( 'codeDriver', $input['codeDriver'] )->first();
+			$driver         = TaiXe::where( 'codeDriver', $input['codeDriver'] )->first();
 			$driver->active = false;
 			$driver->save();
 
@@ -269,10 +273,10 @@ class NhanVienQuanLyXe extends Controller {
 		}
 	}
 
-	function deletePartitionTaxiForDriver($licenceNumber, $codeDriver){
+	function deletePartitionTaxiForDriver( $licenceNumber, $codeDriver ) {
 		$taxiTaiXe = TaxiTaiXe::where( [
 			'licenceNumber' => $licenceNumber,
-			'codeDriver'         => $codeDriver,
+			'codeDriver'    => $codeDriver,
 		] )->first();
 
 		$taxiTaiXe->delete();
@@ -282,19 +286,20 @@ class NhanVienQuanLyXe extends Controller {
 		$taxi->status = $taxi->status - 1;
 		$taxi->save();
 
-		$driver = TaiXe::where( 'codeDriver', $codeDriver )->first();
+		$driver         = TaiXe::where( 'codeDriver', $codeDriver )->first();
 		$driver->active = true;
 		$driver->save();
 
 		return redirect()->route( 'quanLyXe' );
 	}
 
-	function updateDriver($codeDriver){
+	function updateDriver( $codeDriver ) {
 		$driver = TaiXe::where( 'codeDriver', $codeDriver )->first();
-		return view('QuanLyXe.updateDriver')->with(compact('driver'));
+
+		return view( 'QuanLyXe.updateDriver' )->with( compact( 'driver' ) );
 	}
 
-	function postUpdateDriver($codeDriver, DriverRequest $request){
+	function postUpdateDriver( $codeDriver, DriverRequest $request ) {
 		$input = $request->only( [
 			'codeDriver',
 			'firstName',
@@ -313,35 +318,36 @@ class NhanVienQuanLyXe extends Controller {
 			'description',
 		] );
 
-		$driver = TaiXe::where( 'codeDriver', $codeDriver )->first();
-		$driver->codeDriver = $input['codeDriver'];
-		$driver->firstName = $input['firstName'];
-		$driver->lastName = $input['lastName'];
-		$driver->address = $input['address'];
-		$driver->phoneNumber = $input['phoneNumber'];
-		$driver->cardNumber = $input['cardNumber'];
-		$driver->birthday = $input['birthday'];
-		$driver->danToc = $input['danToc'];
-		$driver->relationship = $input['relationship'];
-		$driver->religion = $input['religion'];
+		$driver                   = TaiXe::where( 'codeDriver', $codeDriver )->first();
+		$driver->codeDriver       = $input['codeDriver'];
+		$driver->firstName        = $input['firstName'];
+		$driver->lastName         = $input['lastName'];
+		$driver->address          = $input['address'];
+		$driver->phoneNumber      = $input['phoneNumber'];
+		$driver->cardNumber       = $input['cardNumber'];
+		$driver->birthday         = $input['birthday'];
+		$driver->danToc           = $input['danToc'];
+		$driver->relationship     = $input['relationship'];
+		$driver->religion         = $input['religion'];
 		$driver->educationalLevel = $input['educationalLevel'];
-		$driver->email = $input['email'];
-		$driver->gender = $input['gender'];
-		$driver->story = $input['story'];
-		$driver->description = $input['description'];
+		$driver->email            = $input['email'];
+		$driver->gender           = $input['gender'];
+		$driver->story            = $input['story'];
+		$driver->description      = $input['description'];
 
 		$driver->save();
 
 		return redirect()->back();
 	}
 
-	function deleteDriver($codeDriver){
-		$taiXeTaxi = TaxiTaiXe::where('codeDriver', $codeDriver)->first();
+	function deleteDriver( $codeDriver ) {
+		$taiXeTaxi = TaxiTaiXe::where( 'codeDriver', $codeDriver )->first();
 
-		if (!$taiXeTaxi) {
+		if ( ! $taiXeTaxi ) {
 			$driver = TaiXe::where( 'codeDriver', $codeDriver )->first();
 			$driver->delete();
-			return redirect()->route('listDriver');
+
+			return redirect()->route( 'listDriver' );
 		} else {
 			$errors = new MessageBag( [ 'crateTaxiError' => 'Tài xế đang được phân xe.' ] );
 
@@ -349,12 +355,13 @@ class NhanVienQuanLyXe extends Controller {
 		}
 	}
 
-	function updateTaxi($licenceNumber){
+	function updateTaxi( $licenceNumber ) {
 		$taxi = Taxi::where( 'licenceNumber', $licenceNumber )->first();
-		return view('QuanLyXe.updateTaxi')->with(compact('taxi'));
+
+		return view( 'QuanLyXe.updateTaxi' )->with( compact( 'taxi' ) );
 	}
 
-	function postUpdateTaxi($licenceNumber, TaxiFormRequest $request){
+	function postUpdateTaxi( $licenceNumber, TaxiFormRequest $request ) {
 		$input = $request->only( [
 			'licenceNumber',
 			'numberOfSeat',
@@ -363,11 +370,11 @@ class NhanVienQuanLyXe extends Controller {
 			'machineNumber'
 		] );
 
-		$taxi = Taxi::where( 'licenceNumber', $licenceNumber )->first();
+		$taxi                = Taxi::where( 'licenceNumber', $licenceNumber )->first();
 		$taxi->licenceNumber = $input['licenceNumber'];
-		$taxi->numberOfSeat = $input['numberOfSeat'];
-		$taxi->setModel($input['model']);
-		$taxi->frameNumber = $input['frameNumber'];
+		$taxi->numberOfSeat  = $input['numberOfSeat'];
+		$taxi->setModel( $input['model'] );
+		$taxi->frameNumber   = $input['frameNumber'];
 		$taxi->machineNumber = $input['machineNumber'];
 
 		$taxi->save();
@@ -375,17 +382,143 @@ class NhanVienQuanLyXe extends Controller {
 		return redirect()->back();
 	}
 
-	function deleteTaxi($licenceNumber){
-		$taiXeTaxi = TaxiTaiXe::where('licenceNumber', $licenceNumber)->first();
+	function deleteTaxi( $licenceNumber ) {
+		$taiXeTaxi = TaxiTaiXe::where( 'licenceNumber', $licenceNumber )->first();
 
-		if (!$taiXeTaxi) {
+		if ( ! $taiXeTaxi ) {
 			$taxi = TaiXe::where( 'licenceNumber', $licenceNumber )->first();
 			$taxi->delete();
-			return redirect()->route('listDriver');
+
+			return redirect()->route( 'listDriver' );
 		} else {
 			$errors = new MessageBag( [ 'crateTaxiError' => 'Taxi đang được hoạt động.' ] );
 
 			return redirect()->back()->withInput()->withErrors( $errors );
 		}
+	}
+
+	/*
+	 * Sua chua
+	 */
+	function suaChuaIndex() {
+		$suaChua = SuaChua::paginate( 8 );
+
+		$result = array();
+
+		foreach ( $suaChua as $a ) {
+			$taxi = $a->getTaxi();
+			array_push( $result, [
+				'licenceNumber' => $taxi->licenceNumber,
+				'model'         => $taxi->tGetModel(),
+				'reason'        => $a->reason,
+				'date'          => $a->date,
+				'note'          => $a->note,
+				'id'            => $a->id
+			] );
+		}
+
+		return view( 'QuanLyXe.suaChua.suaChua' )->with( compact( 'suaChua', 'result' ) );
+	}
+
+	function themSuaChua() {
+		$taxi = Taxi::all();
+
+		return view( 'QuanLyXe.suaChua.formSuaChua' )->with( compact( 'taxi' ) );
+	}
+
+	function postThemSuaChua( SuaChuaR $request ) {
+		$input = $request->only( [
+			'licenceNumber',
+			'reason',
+			'date',
+			'note'
+		] );
+
+		SuaChua::create( [
+			'licenceNumber' => $input['licenceNumber'],
+			'reason'        => $input['reason'],
+			'date'          => $input['date'],
+			'note'          => $input['note']
+		] );
+
+		return redirect()->route( 'suaChua' );
+	}
+
+	public function searhSuaChua( Request $request ) {
+		$licenceNumber = $request['licenceNumber'];
+		$model         = $request['model'];
+		$suaChua       = null;
+		if ( isset( $model ) || $model != '' ) {
+			$taxi = Taxi::where( [
+				[ 'licenceNumber', 'LIKE', '%' . $licenceNumber . '%' ],
+				[ 'model', 'LIKE', '%' . $model . '%' ],
+			] )->get();
+
+			$result = array();
+			foreach ( $taxi as $item ) {
+				$suaChua1 = $item->getSuaChua();
+				foreach ( $suaChua1 as $a ) {
+					array_push( $result, [
+						'licenceNumber' => $item->licenceNumber,
+						'model'         => $item->tGetModel(),
+						'reason'        => $a->reason,
+						'date'          => $a->date,
+						'note'          => $a->note,
+						'id'            => $a->id
+					] );
+				}
+			}
+
+		} else {
+			$suaChua = SuaChua::where( 'licenceNumber', 'LIKE', '%' . $licenceNumber . '%' )->paginate( 8 );
+			$result  = array();
+
+			foreach ( $suaChua as $a ) {
+				$taxi = $a->getTaxi();
+				array_push( $result, [
+					'licenceNumber' => $taxi->licenceNumber,
+					'model'         => $taxi->tGetModel(),
+					'reason'        => $a->reason,
+					'date'          => $a->date,
+					'note'          => $a->note,
+					'id'            => $a->id
+				] );
+			}
+		}
+
+
+		return view( 'QuanLyXe.suaChua.suaChua' )->with( compact( 'suaChua', 'result', 'licenceNumber', 'model' ) );
+	}
+
+	public function editSuaChua($id) {
+		$suaChua = SuaChua::find( $id );
+		$taxi = Taxi::all();
+
+		return view( 'QuanLyXe.suaChua.formSuaChua' )->with( compact( 'taxi' , 'suaChua') );
+	}
+
+	public function posteditSuaChua($id, SuaChuaR $request){
+		$input = $request->only( [
+			'licenceNumber',
+			'reason',
+			'date',
+			'note'
+		] );
+
+		$suaChua = SuaChua::find( $id );
+		$suaChua->reason = $input['reason'];
+		$suaChua->date = $input['date'];
+		$suaChua->note = $input['note'];
+
+		$suaChua->save();
+
+		return redirect()->route( 'suaChua' );
+	}
+
+	public function xoaSuaChua( $id ) {
+		$suaChua = SuaChua::find( $id );
+		$suaChua->delete();
+
+		return redirect()->route( 'suaChua' );
 	}
 }

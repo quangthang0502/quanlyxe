@@ -55,6 +55,16 @@ Route::group( [ 'middleware' => 'login' ], function () {
 		Route::get( '/phan-xe', 'NhanVienQuanLyXe@partitionTaxiForDriver' )->name( 'phanXe' );
 		Route::post( '/phan-xe', 'NhanVienQuanLyXe@postPartitionTaxiForDriver' );
 		Route::get( '/xoa-phan-xe/{licenceNumber}/{codeDriver}', 'NhanVienQuanLyXe@deletePartitionTaxiForDriver' )->name( 'xoaPhanXe' );
+
+		Route::get('/sua-chua', 'NhanVienQuanLyXe@suaChuaIndex')->name('suaChua');
+		Route::get('/them-sua-chua', 'NhanVienQuanLyXe@themSuaChua')->name('themSuaChua');
+		Route::post('/them-sua-chua', 'NhanVienQuanLyXe@postThemSuaChua');
+
+		Route::get('/them-sua-chua-{id}', 'NhanVienQuanLyXe@editSuaChua')->name('editSuaChua');
+		Route::post('/them-sua-chua-{id}', 'NhanVienQuanLyXe@posteditSuaChua');
+
+		Route::get('/xoa-sua-chua-{id}', 'NhanVienQuanLyXe@xoaSuaChua')->name('xoaSuaChua');
+		Route::get('/searh-sua-chua','NhanVienQuanLyXe@searhSuaChua')->name('searSuaChua');
 	} );
 
 	Route::group(['prefix' => 'quan-ly-lo-trinh'],function (){

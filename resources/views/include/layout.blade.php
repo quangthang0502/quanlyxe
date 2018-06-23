@@ -84,6 +84,18 @@
                         <span class="nav-link-text">Phân xe và khu vực</span>
                     </a>
                 </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                    <a class="nav-link" href="{{route('suaChua')}}">
+                        <i class="fa fa-fw fa-link"></i>
+                        <span class="nav-link-text">Thông tin sửa chữa</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                    <a class="nav-link" href="{{route('themSuaChua')}}">
+                        <i class="fa fa-fw fa-link"></i>
+                        <span class="nav-link-text">Thêm thông tin sửa chữa</span>
+                    </a>
+                </li>
             @endif
             @if(isTrucBan())
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">

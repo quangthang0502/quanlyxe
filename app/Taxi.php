@@ -23,4 +23,9 @@ class Taxi extends Model {
 	public function setModel($model){
 		$this->model = $model;
 	}
+
+	public function getSuaChua(){
+		return SuaChua::where('licenceNumber', $this->licenceNumber)->get();
+	}
+
 }
