@@ -45,3 +45,14 @@ function isQuanLyXe() {
 function getUser(){
 	return session()->get( 'userData' );
 }
+
+function suportDate($date, $type){
+	if ($type == 'Năm'){
+		return $date;
+	} else {
+		$year = substr($date,0,4);
+		$month = substr($date,4,2);
+
+		return $month.'/'.$year;
+	}
+}

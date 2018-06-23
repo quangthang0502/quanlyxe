@@ -14,11 +14,13 @@
             @endforeach
         </tr>
     @endforeach
-    <tr style="background-color: #e1e1e1; font-weight: bold">
-        <td>Tổng</td>
-        @foreach($total as $c)
-            <td>{{$c}}</td>
-        @endforeach
-    </tr>
+    @if(isset($total) && $total !=  null)
+        <tr style="background-color: #e1e1e1; font-weight: bold">
+            <td>Tổng</td>
+            @foreach($total as $c)
+                <td>{{$c}}</td>
+            @endforeach
+        </tr>
+    @endif
     </tbody>
 @endif

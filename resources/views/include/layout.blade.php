@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="{{url('node_modules/bootstrap/dist/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{url('node_modules/font-awesome/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{url('css/sb-admin.min.css')}}">
+    @yield('head')
     <link rel="stylesheet" href="{{url('css/main.css')}}">
+
 </head>
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
@@ -161,5 +163,6 @@
 
 <script src="{{url('node_modules/jquery/dist/jquery.min.js')}}"></script>
 <script src="{{url('node_modules/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+@yield('foot')
 </body>
 </html>

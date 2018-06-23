@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\NewPasswordRequest;
 use App\LoTrinh;
 use App\PhieuTiepNhienLieu;
+use App\TaiXe;
+use App\Taxi;
+use App\TaxiTaiXe;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -63,7 +66,7 @@ class MainController extends Controller
 	function sieuThongKe($id){
 		if ($id == 0){
 			$time = 'Tháng';
-			$groupBy = 'extract(month from created_at)';
+			$groupBy = 'extract(year_month from created_at)';
 		}else {
 			$time = 'Năm';
 			$groupBy = 'extract(year from created_at)';
@@ -87,11 +90,12 @@ class MainController extends Controller
 				$totalGas = $totalGas + $a->gas;
 				$totalOil = $totalOil + $a->oil;
 				$totalCount = $totalCount + $a->cc;
+
 				array_push($result, [
-					'time' => $a->time,
-					'cc' => $a->cc,
-					'gas' => $a->gas.' Lít',
-					'oil' => $a->oil.' Lít'
+					suportDate($a->time, $time),
+					$a->cc,
+					$a->gas.' Lít',
+					$a->oil.' Lít'
 				]);
 			}
 
@@ -130,6 +134,45 @@ class MainController extends Controller
 				$totalCount,
 				$totalKm.' Km',
 				$totalFee.' Đồng'
+			);
+		}
+
+		if (isQuanLyXe()) {
+			if ($id == 0){
+				$time = 'Tháng';
+				$groupBy = 'extract(year_month from updated_at)';
+			}else {
+				$time = 'Năm';
+				$groupBy = 'extract(year from updated_at)';
+			}
+
+			$taxi = Taxi::select(DB::raw('count(licenceNumber) as dr, '.$groupBy.' as time, model as m'))
+			                      ->groupBy(DB::raw($groupBy.', model'))->get();
+
+			$result = array();
+			$title = array(
+				$time,
+				'Model',
+				'Số lượng xe',
+				'Số xe trống',
+				'Số xe được sử dụng',
+				'Tổng cộng'
+			);
+			foreach ($taxi as $a){
+				$taxi1 = Taxi::select(DB::raw('count(*) as aaa'))->whereRaw($groupBy.'='.$a->time.' AND model="'.$a->m.'" AND status=0')->get();
+				$taxi2 = Taxi::select(DB::raw('count(*) as aaa'))->whereRaw($groupBy.'='.$a->time.' AND model="'.$a->m.'"')->get();
+				$xxx = $taxi2[0]->aaa - $taxi1[0]->aaa;
+				array_push($result, [
+					suportDate($a->time, $time),
+					$a->m,
+					$a->dr,
+					$taxi1[0]->aaa,
+					$xxx,
+					$taxi2[0]->aaa
+				]);
+			}
+
+			$total = array(
 			);
 		}
 
